@@ -1,2 +1,2 @@
-# senasistencia-productivo
-Sistema de gestion de asistencia de usuarios
+![SENASISTENCIA logo](imagenes/logo.png)
+# Sistema de control de asistencia de aprendices
