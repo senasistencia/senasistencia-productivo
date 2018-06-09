@@ -1,10 +1,18 @@
 <?php
 session_start();
-if(isset($_SESSION['usuario'])){
-	
-	header('Location: vistas/usuario/index.php');
-}
 
+if (isset($_SESSION['Validarusuario']))
+{
+  if($_SESSION['Validarusuario']['Tipo_Rol']== 'ADMINISTRADOR')
+  {
+    header('Location: vistas/admin/index.php');
+  }
+  elseif($_SESSION['Validarusuario']['Tipo_Rol'] == 'ADMINISTRADOR')
+  {
+    header('Location: vistas/admin/index.php');
+    require("header.php");
+  }
+}
 ?>
 <!DOCTYPE html>
 <html>
