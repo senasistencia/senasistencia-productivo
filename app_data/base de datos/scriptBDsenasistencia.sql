@@ -309,7 +309,7 @@ CREATE TABLE `usuario` (
   `FechaDeInactivacion_Usuario` date DEFAULT NULL COMMENT 'Fecha de inactivacion del Usuario en el sistema',
   PRIMARY KEY (`ID_Usuario`),
   KEY `fk_usuarios_cliente1_idx` (`FK_DocCliente`)
-) ENGINE=InnoDB DEFAULT AUTO_INCREMENT= 2 CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "usuario"
