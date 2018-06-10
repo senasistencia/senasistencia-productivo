@@ -9,7 +9,7 @@
   	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<script src="js/sweetalert.min.js"></script>
-		
+		<link rel="shortcut icon" href="imagenes/2.svg" />
 		<link rel="stylesheet" href="css/estilos.css">
 		<link rel="stylesheet" href="css/animate.css">
 	</head>
@@ -34,16 +34,16 @@
 						</div>
 					</div>
 				</form>
-				<div class="col s12">
-				</div>
 				<?php if(isset($_GET['errorcode'])){
-						echo "<div class='animated blue col s6 push-s3 rubberBand'>eror</div>";
+						echo "<div class='col s8 offset-s2 m4 offset-m4 animated zoomIn'>
+						<div class='animated bounceOutLeft card-panel red darken-3 error-ms center-align'>Identificación o Contraseña inválidos</div>
+						</div>";
 					} ?>
-				</div>
-
-			
 			</div>
 		</div>
+		</div>
+	
+			
   <div class="footer">
 		<strong>© 2018 SENASISTENCIA</strong>		
 	</div>
