@@ -4,11 +4,11 @@
 
 
 #
-# Procedure "validarUsuario"
+# Procedure "sp_validarUsuario"
 #
 
-DROP PROCEDURE IF EXISTS `validarUsuario`;
-CREATE PROCEDURE `validarUsuario`(IN _usuario BIGINT(16),IN _pass VARCHAR(100))
+DROP PROCEDURE IF EXISTS `sp_validarUsuario`;
+CREATE PROCEDURE `sp_validarUsuario`(IN _usuario BIGINT(16),IN _pass VARCHAR(100))
 BEGIN
 
 SELECT PrimerNombre_Cliente,Tipo_Rol FROM cliente inner join cliente_rol inner join rol

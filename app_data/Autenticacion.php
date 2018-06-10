@@ -2,28 +2,23 @@
       require('conexion.php');
       session_start();
       
-      echo "<script>alert('llego al alert')</scrpt>";
       $usuario=$_POST['username'];
       $password=$_POST['password'];
-      echo "llego aca";
-      $sql = "CALL validarusuario(?,?)";
+      $sql = "CALL sp_validarUsuario(?,?)";
       $con = $PDO->prepare($sql);
       $con->execute(array($usuario,$password));
       $resultado=$con->fetchall(PDO::FETCH_OBJ);
       print_r($resultado);
 
-      if ($resultado == true)
+      if ($resultado)
       {        
         
         $rol = $resultado[0]->Tipo_Rol;  
         $_SESSION['id_user'] = $resultado;      
         switch($rol)
         {
-          case 'ADMINISTRADOR':
+          case 'Administrador':
           header('Location: ../vistas/admin/index.php');          
-          break;
-          case 'INSTRUCTOR':
-          header('Location: ../vistas/usuario/index.php');
           break;
           case 'Usuario':
           header('Location: ../vistas/usuario/index.php');
