@@ -1,11 +1,3 @@
-<?php
-session_start();
-if(isset($_SESSION['usuario'])){
-	
-	header('Location: vistas/usuario/index.php');
-}
-
-?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -16,8 +8,10 @@ if(isset($_SESSION['usuario'])){
 		<!-- CDN solo funciona con internet-->
   	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+		<script src="js/sweetalert.min.js"></script>
+		
 		<link rel="stylesheet" href="css/estilos.css">
+		<link rel="stylesheet" href="css/animate.css">
 	</head>
 
 	<body class="grey lighten-3">
@@ -40,9 +34,14 @@ if(isset($_SESSION['usuario'])){
 						</div>
 					</div>
 				</form>
+				<div class="col s12">
+				</div>
 				<?php if(isset($_GET['errorcode'])){
-						echo "<script>alert('Usuario o Contraseña erroneos');</script>";
+						echo "<div class='animated blue col s6 push-s3 rubberBand'>eror</div>";
 					} ?>
+				</div>
+
+			
 			</div>
 		</div>
   <div class="footer">
@@ -69,6 +68,7 @@ if(isset($_SESSION['usuario'])){
 		<!--CDN solo funciona con internet -->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+		
 		<!--libreria local
 		<script type="text/javascript" src="js/materialize.min.js"></script>
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script> -->

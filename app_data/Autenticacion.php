@@ -8,7 +8,7 @@
       /*}
  public function Validarusuario($usuario)
     {*/
-      echo "<script>alert('llego al alert')";
+      echo "<script>alert('llego al alert')</script>";
       $usuario=$_POST['username'];
       $password=$_POST['password'];
       echo "llego aca";
