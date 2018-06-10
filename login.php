@@ -1,18 +1,4 @@
-<?php
-session_start();
-if (isset($_SESSION['id_user']['CALL validarUsuario' ]))
-{
-  if($_SESSION['id_user']['Tipo_Rol'] == 'ADMINISTRADOR')
-  {
-    header('Location: vistas/admin/index.php');
-  }
-  elseif($_SESSION['id_user']['Tipo_Rol'] == 'INSTRUCTOR')
-  {
-	header('Location: vistas/usuario/index.php');    
-  }
-}
 
-?>
 <!DOCTYPE html>
 <html>
 	<head>

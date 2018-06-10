@@ -9,22 +9,20 @@
       $sql = "CALL validarusuario(?,?)";
       $con = $PDO->prepare($sql);
       $con->execute(array($usuario,$password));
-      $resultado=$con->fetchall();
+      $resultado=$con->fetchall(PDO::FETCH_OBJ);
       print_r($resultado);
 
       if ($resultado == true)
-      {
+      {        
         
-        $rol = $resultado[0]['Tipo_Rol'];
+        $rol = $resultado[0]->Tipo_Rol;  
+        $_SESSION['id_user'] = $resultado;      
         switch($rol)
         {
           case 'ADMINISTRADOR':
-          $_SESSION['id_user'] = $resultado;
-          header('Location: ../vistas/admin/index.php');
-          
+          header('Location: ../vistas/admin/index.php');          
           break;
           case 'INSTRUCTOR':
-          
           header('Location: ../vistas/usuario/index.php');
           break;
           case 'Usuario':

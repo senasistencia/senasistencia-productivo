@@ -1,17 +1,14 @@
 <?php
 require("header.php");
 session_start();
-if (isset($_SESSION['id_user']))
+//error_reporting(0);
+$llamarsesion = $_SESSION['id_user'];
+if ($llamarsesion == null || $llamarsesion == '' ||  $llamarsesion[0]->Tipo_Rol !== 'INSTRUCTOR')
 {
-  if($_SESSION['id_user']['CALL validarUsuario'] != 'INSTRUCTOR')
-  {
-    header('Location: ../admin/index.php');
-  }
-  else
-  {
-	header('Location: usuario/index.php');    	
-  }
+  echo 'No tiene permiso para ingresar';
+  die();
 }
+
 ?>
 <nav>
     <div class="nav-wrapper cyan darken-4">
@@ -48,8 +45,10 @@ if (isset($_SESSION['id_user']))
   <script src="main.js"></script>
 </head>
 <body>
-  <h1>Bienvenid@ <?php echo $_SESSION['id_user']['Tipo_Rol'] ?> </h1>
-  <a href="Cerrarsesion.php">Cerrar Sesion</a>
+  <h6>Bienvenid@: <?php foreach($llamarsesion as $Datos){
+    echo $Datos->PrimerNombre_Cliente . "<br>" . $Datos->Tipo_Rol;    
+  } ?> </h6>
+  <a href="../../Cerrarsesion.php">Cerrar Sesion</a>
 </body>
 </html>
 
