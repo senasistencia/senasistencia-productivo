@@ -1,3 +1,18 @@
+<?php
+session_start();
+if (isset($_SESSION['id_user']['CALL validarUsuario' ]))
+{
+  if($_SESSION['id_user']['Tipo_Rol'] == 'ADMINISTRADOR')
+  {
+    header('Location: vistas/admin/index.php');
+  }
+  elseif($_SESSION['id_user']['Tipo_Rol'] == 'INSTRUCTOR')
+  {
+	header('Location: vistas/usuario/index.php');    
+  }
+}
+
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -40,24 +55,6 @@
   <div class="footer">
 		<strong>© 2018 SENASISTENCIA</strong>		
 	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		<!--CDN solo funciona con internet -->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>

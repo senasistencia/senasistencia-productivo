@@ -6,7 +6,7 @@
       $usuario=$_POST['username'];
       $password=$_POST['password'];
       echo "llego aca";
-      $sql = "CALL validarUsuario3(?,?)";
+      $sql = "CALL validarusuario(?,?)";
       $con = $PDO->prepare($sql);
       $con->execute(array($usuario,$password));
       $resultado=$con->fetchall();
@@ -19,11 +19,12 @@
         switch($rol)
         {
           case 'ADMINISTRADOR':
-          $_SESSION['Validarusuario'] = $resultado;
+          $_SESSION['id_user'] = $resultado;
           header('Location: ../vistas/admin/index.php');
           
           break;
           case 'INSTRUCTOR':
+          
           header('Location: ../vistas/usuario/index.php');
           break;
           case 'Usuario':
