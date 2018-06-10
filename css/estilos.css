@@ -27,5 +27,22 @@
 
   height: 100%;
 }
+/*
+.bounceInLeft{
 
+  -webkit-animation-delay: 5s !important;
+}
+*/
+.bounceOutLeft{
+  -webkit-animation-delay: 1.5s !important;
+}
+.zoomIn{
+  -webkit-animation-duration: 0.2s !important;
+}
 
+.error-ms{
+  top:0;
+  margin:10px;
+  padding:10px;
+  color:white;
+}
