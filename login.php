@@ -21,7 +21,7 @@
 					<div class="section">
 						<img class="logo-login" src="imagenes/logo-login.png" alt="perra">
 					</div>
-					<div class="divider col s12"></div>
+					<div class="divider"></div>
 					<div class="section">	
 						<div class="row">
 							<input name="username" class="col s8 offset-s2 validate" type="number" placeholder="Numero de identificación" required="true">

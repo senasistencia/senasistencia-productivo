@@ -7,6 +7,16 @@ body {
 main {
   flex: 1 0 auto;
 }
+.borde{
+  border:1px solid red;
+}
+.formulario{
+  margin:20px;
+  padding: 200px;
+}
+.margen{
+  margin-top: 20px;
+}
 .error-ms{
   top:0;
   margin:10px;
@@ -41,7 +51,9 @@ main {
 
   height: 100%;
 }
-
+.oculto{
+  display: none;
+}
 .username{
   font-weight: bold;
 }
@@ -70,4 +82,14 @@ main {
 
 .zoomIn{
   -webkit-animation-duration: 0.2s !important;
+}
+
+/*colir de el swtch*/
+
+.switch label input[type=checkbox]:checked+.lever {
+  background-color: #fa3;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+  background-color: #ef6c00;
 }
