@@ -1,11 +1,35 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+.borde{
+  border:1px solid red;
+}
+.formulario{
+  margin:20px;
+  padding: 200px;
+}
+.margen{
+  margin-top: 20px;
+}
+.error-ms{
+  top:0;
+  margin:10px;
+  padding:10px;
+  color:white;
+}
+
 .footer{
   position: absolute;
   bottom: 0;
   margin: 20px;
 }
-.hover-blanco:hover{
-  background-color: rgba(255, 255,255, 0.1)
-}
+
 .logo-admin{
   margin-top:5px;
   margin-left: 2%;
@@ -27,22 +51,45 @@
 
   height: 100%;
 }
+.oculto{
+  display: none;
+}
+.username{
+  font-weight: bold;
+}
+.titulo{
+  font-size: 1.5em;
+}
+.subtitulo{
+  font-size: .8em;
+}
+.senasistencia{
+  font-weight: bold;
+}
 /*
 .bounceInLeft{
 
   -webkit-animation-delay: 5s !important;
 }
 */
+
+
+
+
 .bounceOutLeft{
   -webkit-animation-delay: 1.5s !important;
 }
+
 .zoomIn{
   -webkit-animation-duration: 0.2s !important;
 }
 
-.error-ms{
-  top:0;
-  margin:10px;
-  padding:10px;
-  color:white;
+/*colir de el swtch*/
+
+.switch label input[type=checkbox]:checked+.lever {
+  background-color: #fa3;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+  background-color: #ef6c00;
 }

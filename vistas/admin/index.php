@@ -3,9 +3,22 @@ require("header.php");
 ?>
 
 
-  <h6>Bienvenid@: <?php foreach($llamarsesion as $Datos){
-    echo $Datos->PrimerNombre_Cliente . "<br>" . $Datos->Tipo_Rol;    
-  } ?> </h6>
-  <a href="../../Cerrarsesion.php">Cerrar Sesion</a>
+<div class="container">
+  <div class="row">
+    <div class="col s12 center-align">
+    <?php foreach($llamarsesion as $Datos){
+    echo "<p class='titulo'>Te damos la bienvenida a: <br/> <span class='senasistencia'>SENASISTENCIA</span> <br/><span class='username'>".$Datos->PrimerNombre_Cliente ."</span>, <span class='subtitulo '>estas son tus fichas asociadas<span></p>";    
+  } ?>
+    <div class="divider"></div>
+    <div class="col s12 m4">
+       
+    </div>
+  </div>
+  </div>
+</div>
+  
 
 
+<?php 
+  require('footer.php');
+?>
