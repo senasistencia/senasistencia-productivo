@@ -1,5 +1,6 @@
 <?php
 require("header.php");
+$doc = $llamarsesion[0]->Documento_Cliente;
 ?>
 <div class="container">
   <div class="row">
@@ -9,7 +10,7 @@ require("header.php");
   } ?>
     <div class="divider"></div>
     <div class="col s12 m4">
-       
+      <?php //foreach()?>
     </div>
   </div>
   </div>
