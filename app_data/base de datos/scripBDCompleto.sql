@@ -240,19 +240,41 @@ CREATE TABLE `usuario` (
 #
 
 DROP PROCEDURE IF EXISTS `sp_validarUsuario`;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_validarUsuario`(IN _usuario BIGINT(16),IN _pass VARCHAR(100))
+CREATE PROCEDURE `sp_validarUsuario`(IN _usuario BIGINT(16),IN _pass VARCHAR(100))
 BEGIN
 
 SELECT Documento_Cliente,PrimerNombre_Cliente,Tipo_Rol FROM cliente inner JOIN cliente_rol inner JOIN rol
-
-      ON cliente.Documento_Cliente = cliente_rol.FK_DocCliente AND rol.ID_Rol =  cliente_rol.FK_Rol 
-
-      WHERE Documento_Cliente = (SELECT FK_DocCliente FROM usuario WHERE usuario.FK_DocCliente = _usuario AND usuario.Password_Hash = SHA1(_pass));
+ON cliente.Documento_Cliente = cliente_rol.FK_DocCliente AND rol.ID_Rol =  cliente_rol.FK_Rol 
+WHERE Documento_Cliente = (SELECT FK_DocCliente FROM usuario WHERE usuario.FK_DocCliente = _usuario AND usuario.Password_Hash = SHA1(_pass));
 
 END;
 
+#
+# Procedure "sp_fichasAsoc"
+#
 
+DROP PROCEDURE IF EXISTS `sp_fichasAsoc`;
+CREATE PROCEDURE `sp_fichasAsoc`(IN _documento BIGINT(16))
+BEGIN
 
+SELECT ID_Ficha,Nombre_Programa as Programa ,Num_Ficha,Grupo_Ficha FROM ficha INNER JOIN cliente_ficha INNER JOIN cliente INNER JOIN programa_formacion
+ON ficha.ID_Ficha = cliente_ficha.FK_Ficha AND cliente.Documento_Cliente = cliente_ficha.FK_DocCliente AND programa_formacion.ID_Programa = ficha.FK_Programa WHERE cliente.Documento_Cliente = _documento;
+
+END;
+
+#
+# Procedure "impFicha"
+#
+
+DROP PROCEDURE IF EXISTS `impFicha`;
+CREATE PROCEDURE `impFicha`()
+BEGIN
+
+SELECT ID_Ficha,Nombre_Programa,Num_Ficha, Grupo_Ficha, Jornada_Ficha, Trimestre_Ficha, Estado_Ficha, FechaDeCreacion_Ficha, FechaDeInactivacion_Ficha FROM 
+ficha inner join programa_formacion 
+on FK_Programa= ID_Programa;
+
+END;
 
 
 
