@@ -55,7 +55,7 @@ class FichaModel
         $objeto->execute(array( $ficha->__GET('id_ficha'),$ficha->__GET('FK_programa'),$ficha->__GET('num_ficha'),
         $ficha->__GET('grupo'), $ficha->__GET('jornada'),$ficha->__GET('trimestre'),
         $ficha->__GET('estado'),$ficha->__GET('fechaCreacion')));
-        
+
     
     }
 
@@ -111,21 +111,7 @@ class FichaModel
         die($e->getMessage());
       }
     }
-
-    public function asignarProfe($documento,$id)//reemplazar "XNombretabla" por el nombre de la tabla que correponda
-    {
-      try
-      {
-        $consulta = "INSERT INTO cliente_ficha VALUES(?,?)";
-        $objeto = $this->PDO->prepare($consulta);
-        $objeto->execute(array($documento,$id));
-        $programa = $objeto->fetchAll(PDO::FETCH_OBJ);
-        return $programa;
-      } catch (Exception $e) {
-        die($e->getMessage());
-      }
-    }
-    
+   
 
 }
 ?> 
