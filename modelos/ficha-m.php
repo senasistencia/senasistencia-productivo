@@ -23,7 +23,7 @@ class FichaModel
     public function imprimirTabla()
     {
       try{
-      $consulta = "CALL impFicha()";//el nombre de la tabla
+      $consulta = "CALL sp_impFicha()";//el nombre de la tabla
       $objeto = $this->PDO->prepare($consulta);
       $objeto->execute();
       $tabla = $objeto->fetchAll(PDO::FETCH_OBJ);
@@ -112,6 +112,33 @@ class FichaModel
       }
     }
    
+    public function fichasAsoc($documento)
+    {
+      try{
+      $consulta = "CALL s()";//el nombre de la tabla
+      $objeto = $this->PDO->prepare($consulta);
+      $objeto->execute();
+      $tabla = $objeto->fetchAll(PDO::FETCH_OBJ);
+      
+      foreach ($tabla as $fila )
+      {
+          $ficha = new Ficha();//se instancia la clase que se esta haciendo
+          $ficha->__SET('id_ficha', $fila->ID_Ficha);//se llama el campo de la tabla que corresponda con el atributo de la clase
+          $ficha->__SET('FK_programa', $fila->Nombre_Programa);//se llama el campo de la tabla que corresponda con el atributo de la clase
+          $ficha->__SET('num_ficha',$fila->Num_Ficha);//se repite segun los campos que hayan en la tabla
+          $ficha->__SET('grupo',$fila->Grupo_Ficha);//se repite segun los campos que hayan en la tabla
+          $ficha->__SET('jornada',$fila->Jornada_Ficha);//se repite segun los campos que hayan en la tabla
+          $ficha->__SET('trimestre',$fila->Trimestre_Ficha);//se repite segun los campos que hayan en la tabla
+          $ficha->__SET('estado',$fila->Estado_Ficha == 0 ? 'inactivo':'activo');//se repite segun los campos que hayan en la tabla
+          $ficha->__SET('fechaCreacion',$fila->FechaDeCreacion_Ficha);
+          $result[] = $ficha;
+        }
+
+      } catch (Exception $e) {
+        die($e->getMessage());
+      }
+      return $result;//se devuelve el arreglo result
+    }
 
 }
 ?> 

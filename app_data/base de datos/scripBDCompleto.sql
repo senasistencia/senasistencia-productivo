@@ -263,11 +263,11 @@ ON ficha.ID_Ficha = cliente_ficha.FK_Ficha AND cliente.Documento_Cliente = clien
 END;
 
 #
-# Procedure "impFicha"
+# Procedure "sp_impFicha"
 #
 
-DROP PROCEDURE IF EXISTS `impFicha`;
-CREATE PROCEDURE `impFicha`()
+DROP PROCEDURE IF EXISTS `sp_impFicha`;
+CREATE PROCEDURE `sp_impFicha`()
 BEGIN
 
 SELECT ID_Ficha,Nombre_Programa,Num_Ficha, Grupo_Ficha, Jornada_Ficha, Trimestre_Ficha, Estado_Ficha, FechaDeCreacion_Ficha, FechaDeInactivacion_Ficha FROM 
