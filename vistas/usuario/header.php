@@ -25,22 +25,24 @@ if ($llamarsesion[0]->Tipo_Rol !== 'Usuario')
 </head>
 <body>
 <ul id="miCuentaOp" class="dropdown-content">
-  <li><a href="#!" class="">Configuración<i class="material-icons left">settings</i></a></li>
-  <li><a href="../../Cerrarsesion.php">Cerrar sesión<i class="material-icons left">transit_enterexit</i></a></li> 
+  <li><a href="#!" class="blue-grey-text text-darken-4"class=""><i class="material-icons left">settings</i>Configuración</a></li>
+  <li><a href="../../Cerrarsesion.php" class="blue-grey-text text-darken-4"><i class="material-icons left">transit_enterexit</i>Cerrar sesión</a></li> 
 </ul>
 <nav>
-    <div class="nav-wrapper cyan darken-4">
-      <img src="../../imagenes/admin.png" class="logo-admin brand-logo">
+    <div class="nav-wrapper blue-grey darken-4">
+      <img src="../../imagenes/logo-s.png" class="logo-h brand-logo">
       <a href="#" data-activates="menu-lateral" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-      <li><a href="badges.html">Excusas<i class="material-icons left">date_range</i></a></li>
-        <li><a href="collapsible.html">Reportes<i class="material-icons left">assessment</i></a></li>
-        <li><a class='dropdown-button' href='' data-activates='miCuentaOp'>Mi Cuenta<i class="material-icons left">account_circle</i></a></li>
+        <li><a href="badges.html" class="hoverL">Excusas<i class="material-icons left">date_range</i></a></li>
+        <li><a href="collapsible.html" class="hoverL">Reportes<i class="material-icons left">assessment</i></a></li>
+        <li><a class="dropdown-button hoverL" data-activates='miCuentaOp'>Mi Cuenta<i class="material-icons left">account_circle</i></a></li>
       </ul>
       <ul class="side-nav" id="menu-lateral">
         <li><a class="dropdown-button" href="#!" data-activates="miCuentaOp2">Mi Cuenta<i class="material-icons left">account_circle</i></a></li>
         <li><a href="badges.html">Excusas<i class="material-icons left">date_range</i></a></li>
         <li><a href="collapsible.html">Reportes<i class="material-icons left">assessment</i></a></li>
       </ul>
+    </div>
   </nav>
+
   <main>

@@ -36,6 +36,23 @@ main {
   max-width: 420px;
   max-height: 100%;
 }
+.logo-h{
+margin-top: 5px;
+  margin-left: 2%;
+  max-width: 420px;
+  max-height: 70%;
+}
+.fijo{
+  position: fixed;
+}
+.hoverL:hover{
+background-color: rgba(255, 255,255, .2)
+}
+
+.fuente{
+  font-size: 1em !important;
+}
+
 .login{
   margin-top: 18%;
 }
@@ -60,6 +77,12 @@ main {
 .titulo{
   font-size: 1.5em;
 }
+.tarjetaF{
+  height: 120px;
+  font-size: 3em;
+  padding: 10%;
+}
+
 .subtitulo{
   font-size: .8em;
 }

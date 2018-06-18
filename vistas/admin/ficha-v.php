@@ -22,7 +22,7 @@ require('../../controladores/ficha-c.php');
                   <select name="FK_programa">
                       <?php 
                       $laconsulta = $modelo->consultarPrograma();
-                      foreach ($laconsulta as $datos) {;?>
+                      foreach ($laconsulta as $datos) {?>
 
                         <option value="<?php echo $datos->ID_Programa ;?>" <?php echo $ficha->__GET('FK_programa') == $datos->ID_Programa ? 'selected' : ''; ?> > <?php echo $datos->Nombre_Programa  ;?> </option>
 
