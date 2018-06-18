@@ -271,8 +271,8 @@ CREATE PROCEDURE `sp_impFicha`()
 BEGIN
 
 SELECT ID_Ficha,Nombre_Programa,Num_Ficha, Grupo_Ficha, Jornada_Ficha, Trimestre_Ficha, Estado_Ficha, FechaDeCreacion_Ficha, FechaDeInactivacion_Ficha FROM 
-ficha inner join programa_formacion 
-on FK_Programa= ID_Programa;
+ficha INNER JOIN programa_formacion 
+ON FK_Programa = ID_Programa;
 
 END;
 #
@@ -281,13 +281,24 @@ END;
 
 DROP PROCEDURE IF EXISTS `sp_impAprendiz`;
 CREATE PROCEDURE sp_impAprendiz()
-SELECT Nombre_TipoDeDocumento,`Documento_Aprendiz`,`PrimerNombre_Aprendiz`,`SegundoNombre_Aprendiz`, `PrimerApellido_Aprendiz`,
+BEGIN
+SELECT `Nombre_TipoDeDocumento`,`Documento_Aprendiz`,`PrimerNombre_Aprendiz`,`SegundoNombre_Aprendiz`, `PrimerApellido_Aprendiz`,
 `SegundoApellido_Aprendiz`,`Correo_Aprendiz`,`Telefono_Aprendiz`,`Num_Ficha`,`Estado_Aprendiz`,`FechaDeCreacion_Aprendiz`,`FechaDeInactivacion_Aprendiz`
 FROM 
-aprendiz inner join tipo_de_documento inner join ficha 
-on FK_TipoDeDocumento = ID_TipoDeDocumento and FK_Ficha = ID_Ficha;
+aprendiz INNER JOIN tipo_de_documento INNER JOIN ficha 
+ON FK_TipoDeDocumento = ID_TipoDeDocumento AND FK_Ficha = ID_Ficha;
 
+END;
 
+#
+# Procedure "sp_listadoA"
+#
+
+DROP PROCEDURE IF EXISTS `sp_listadoA`;
+CREATE PROCEDURE `sp_listadoA`(IN _idFicha BIGINT(16))
+BEGIN
+SELECT PrimerNombre_Aprendiz,PrimerApellido_Aprendiz FROM aprendiz
+WHERE Estado_aprendiz = 1 AND FK_Ficha = _idFicha;
 END;
 
 

@@ -47,7 +47,7 @@ if(isset($_REQUEST['action']))
 
             break;
             case 'editar':
-              $aprendiz = $modelo->editar($_REQUEST['id']);
+              $aprendiz = $modelo->editar($_REQUEST['documentoAprendiz']);
             break;
             default:
         

@@ -77,8 +77,6 @@ class AprendizModel
     }
 
 
-
-
     public function editar($id)
     {
       try
@@ -89,7 +87,7 @@ class AprendizModel
           $fila= $objeto->fetch(PDO::FETCH_OBJ);
 
           $aprendiz = new Aprendiz();//se instancia la clase que se esta haciendo
-          $aprendiz->__SET('FK_tipoDocumento', $fila->Nombre_TipoDeDocumento);//se llama el campo de la tabla que corresponda con el atributo de la clase
+          $aprendiz->__SET('FK_tipoDocumento', $fila->FK_TipoDeDocumento);//se llama el campo de la tabla que corresponda con el atributo de la clase
           $aprendiz->__SET('documentoAprendiz', $fila->Documento_Aprendiz);//se llama el campo de la tabla que corresponda con el atributo de la clase
           $aprendiz->__SET('primerNombre',$fila->PrimerNombre_Aprendiz);//se repite segun los campos que hayan en la tabla
           $aprendiz->__SET('segundoNombre',$fila->SegundoNombre_Aprendiz);//se repite segun los campos que hayan en la tabla
@@ -98,7 +96,7 @@ class AprendizModel
           $aprendiz->__SET('correo',$fila->Correo_Aprendiz);//se repite segun los campos que hayan en la tabla
           $aprendiz->__SET('telefono',$fila->Telefono_Aprendiz);//se repite segun los campos que hayan en la tabla
           $aprendiz->__SET('FK_ficha',$fila->Num_Ficha);//se repite segun los campos que hayan en la tabla
-          $aprendiz->__SET('estado',$fila->Estado_Aprendiz == 0 ? 'inactivo':'activo');//se repite segun los campos que hayan en la tabla
+          $aprendiz->__SET('estado',$fila->Estado_Aprendiz);//se repite segun los campos que hayan en la tabla
           $aprendiz->__SET('fechaCreacion',$fila->FechaDeCreacion_Aprendiz);
           //repetir segun los campos de la tabla
 
@@ -133,7 +131,16 @@ class AprendizModel
       } catch (Exception $e) {
         die($e->getMessage());
       }
-    }  
+    }
+    
+    public function listado($nficha)
+    {
+      $consulta = "CALL sp_listadoA(?)";//el nombre de la tabla
+      $objeto = $this->PDO->prepare($consulta);
+      $objeto->execute(array($nficha));
+      $lista = $objeto->fetchAll(PDO::FETCH_OBJ);
+      return $lista;
+    }
 
 }
 ?> 

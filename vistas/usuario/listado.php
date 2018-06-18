@@ -2,19 +2,44 @@
 require('header.php');
 //require('../../modelos/ficha');
 require('../../app_data/config.php');
-require('../../app_data/conexion.php');
+require('../../modelos/aprendiz-m.php');
+$modelo = new AprendizModel($DB_server,$DB_puerto,$DB_baseDatos,$DB_user,$DB_pass);
 $nficha = $_GET['f'];
-$consulta = "CALL sp_listadoA(?)";//el nombre de la tabla
-$objeto = $PDO->prepare($consulta);
-$objeto->execute(array($nficha));
-$tabla = $objeto->fetchAll(PDO::FETCH_OBJ);
+
 ?>
 <div class="container">
   <div class="row">
     <h3 class="center-align">Listado de aprendices</h3><div class="divider"></div>
-    <?php foreach ($tabla as $datos) {
-        print_r($datos);
-    } ?>
+    <div class="container">
+      <div class="row"> 
+    
+    <table class="striped bordered responsive-table col s10 right-align">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Asiste</th>
+        </tr>
+      </thead>
+    <tbody>
+    <?php 
+    $i=1;
+    foreach( $modelo->listado($nficha) as $fila){?>
+    <tr>
+      <td><?php echo $fila->PrimerNombre_Aprendiz;?></td>
+      <td><?php echo $fila->PrimerApellido_Aprendiz;?></td>
+      <td>
+      <p>
+      <input type="checkbox" id="<?php echo $i?>" />
+        <label for="<?php echo $i ?>"></label>
+      </p>
+      </td>
+    </tr>
+    <?php $i++; } ;?>
+    </tbody>
+    </table>
+    </div>
+    </div>
   </div>
 </div>
 
