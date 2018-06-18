@@ -90,63 +90,7 @@ class DocumentoModel
         die($error->getMessage());
       }
 
-$documento = new TipoDocumento();//reemplazar $programa y xNombreClase por el nombre de la clase
 
-
-if (isset($_REQUEST['ac']))
-{
-
-  switch ($_REQUEST['ac']) {
-    case 'registrar':
-
-      $documento->__SET('id_tipoDocumento',$_REQUEST['id']);
-      $documento->__SET('nombreTipoDocumento',$_REQUEST['nombreTipoDocumento']);
-      if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
-      $documento->__SET('estado',$estado);
-      $documento->__SET('fechaCreacion', date("y/m/d"));
-      $consulta = "INSERT INTO tipo_de_documento (ID_TipoDeDocumento,Nombre_TipoDeDocumento,Estado_TipoDeDocumento,FechaDeCreacion_TipoDeDocumento) VALUES (?,?,?,?)";
-      $objeto = $PDO->prepare($consulta);
-      $objeto->execute(array( $documento->__GET('id_tipoDocumento'),$documento->__GET('nombreTipoDocumento'),$documento->__GET('estado'),$documento->__GET('fechaCreacion')));
-      header("Location: tipoDocumento-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
-      
-    break;
-   case 'actualizar':
-   $documento->__SET('id_tipoDocumento',$_REQUEST['id']);
-   $documento->__SET('nombreTipoDocumento',$_REQUEST['nombreTipoDocumento']);
-   if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
-   $documento->__SET('estado',$estado);
-      $consulta = "UPDATE tipo_de_documento SET Nombre_TipoDeDocumento = ? , Estado_TipoDeDocumento = ? WHERE ID_TipoDeDocumento = ?";
-      $objeto = $PDO->prepare($consulta);
-      $objeto->execute(array( $documento->__GET('nombreTipoDocumento'),$documento->__GET('estado'),$documento->__GET('id_tipoDocumento')));
-   
-    header("Location: tipoDocumento-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
-
-    break;
-    case 'editar':
-      $consulta ="SELECT*FROM tipo_de_documento WHERE ID_TipoDeDocumento = ?";
-      $objeto = $this->PDO->prepare($consulta);
-      $objeto->execute(array($_REQUEST['id']));
-      $fila= $objeto->fetch(PDO::FETCH_OBJ);
-
-      
-      $documento->__SET('id_tipoDocumento', $fila->ID_TipoDeDocumento);//se llama el campo de la tabla que corresponda con el atributo de la clase
-      $documento->__SET('nombreTipoDocumento',$fila->Nombre_TipoDeDocumento);//se repite segun los campos que hayan en la tabla
-      $documento->__SET('estado',$fila->Estado_TipoDeDocumento);//se repite segun los campos que hayan en la tabla
-      $documento->__SET('fechaCreacion',$fila->FechaDeCreacion_TipoDeDocumento);
-
-
-      //header("Location: programa-v.php");
-    break;
-    case 'eliminar':
-      $modelo->eliminar($_REQUEST['id']);
-      header("Location: ../vistas/admin/tipoDocumento-v.php");
-    break;
-    default:
-
-    break;
-  }
-
-}
 ?>
 <div class="container">
   <div class="row">

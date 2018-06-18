@@ -2,7 +2,7 @@
 //clase inicializada
   class Cliente{
     //atributos de la tabla
-    private $doucmentoCliente;//llave primaria
+    private $documentoCliente;//llave primaria
     private $primerNombre;
     private $segundoNombre;//opcional
     private $primerApellido;
