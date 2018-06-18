@@ -20,7 +20,15 @@ class RolModel
       }
     }
     //funcion para imprimir la tabla
-    foreach ($tabla as $fila )
+    public function Imprimirtabla()
+    {
+      try {
+      $consulta = "SELECT * FROM rol()";//el nombre de la tabla
+      $objeto = $this->PDO->prepare($consulta);
+      $objeto->execute();
+      $tabla = $objeto->fetchAll(PDO::FETCH_OBJ);
+      
+     foreach ($tabla as $fila )
       {
           $rol = new Rol();//se instancia la clase que se esta haciendo
           $rol->__SET('id_rol', $fila->ID_Rol);//se llama el campo de la tabla que corresponda con el atributo de la clase
@@ -29,7 +37,6 @@ class RolModel
           $rol->__SET('fechaCreacion',$fila->FechaDeCreacion_Rol);
           $result[] = $rol;
         }
-
       } catch (Exception $e) {
         die($e->getMessage());
       }

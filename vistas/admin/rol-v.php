@@ -1,95 +1,6 @@
 <?php
 require('header.php');
-require("../../clases/rol.php");
-
-class RolModel
-{
-//variable privada pdo
-    Private $PDO;
-    public function __construct()
-    {
-      try
-      { 
-        $this->PDO = new PDO("mysql:host=localhost;port=3306;dbname=senasistencia;charset=utf8","root","");
-        $this->PDO->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-        //echo "se conecto";//probar conexion
-
-      } catch (PDOException $error)
-      {
-        echo "no se conecto a la base de datos codigo de error: ";
-        die($error->getMessage());
-      }
-    }
-    //funcion para imprimir la tabla
-    public function imprimirTabla()
-    {
-
-      try
-      {
-        $consulta = "SELECT * FROM rol";//el nombre de la tabla
-        $objeto = $this->PDO->prepare($consulta);
-        $objeto->execute();
-        $tabla = $objeto->fetchAll(PDO::FETCH_OBJ);
-
-        foreach ($tabla as $fila )
-        {
-            $rol = new Rol();//se instancia la clase que se esta haciendo
-            $rol->__SET('id_rol', $fila->ID_Rol);//se llama el campo de la tabla que corresponda con el atributo de la clase
-            $rol->__SET('tipo_rol',$fila->Tipo_Rol);//se repite segun los campos que hayan en la tabla
-            $rol->__SET('estado',$fila->Estado_Rol);//se repite segun los campos que hayan en la tabla
-            $rol->__SET('fechaCreacion',$fila->FechaDeCreacion_Rol);
-            $result[] = $rol;//se mete en el arreglo result[] la varible con la clase
-        }
-
-      } catch (Exception $e) {
-        die($e->getMessage());
-      }
-      return $result;//se devuelve el arreglo result
-    }
-
-    public function editar($id)
-    {
-      try
-      {
-          $consulta ="SELECT*FROM rol WHERE ID_Rol = ?";
-          $objeto = $this->PDO->prepare($consulta);
-          $objeto->execute(array($id));
-          $fila= $objeto->fetch(PDO::FETCH_OBJ);
-
-            $rol = new Rol();//se instancia la clase que se esta haciendo
-            $rol->__SET('id_rol', $fila->ID_Rol);//se llama el campo de la tabla que corresponda con el atributo de la clase
-            $rol->__SET('tipo_rol',$fila->Tipo_Rol);//se repite segun los campos que hayan en la tabla
-            $rol->__SET('estado',$fila->Estado_Rol);//se repite segun los campos que hayan en la tabla
-            $rol->__SET('fechaCreacion',$fila->FechaDeCreacion_Rol);
-          //repetir segun los campos de la tabla
-
-      } catch (Exception $e) {
-          die($e->getMessage());
-      }
-      return $rol;
-    }
-
-   
-        
-       
-
-    
-  
-
-
-}
-    try
-      { 
-        $PDO = new PDO("mysql:host=localhost;port=3306;dbname=senasistencia;charset=utf8","root","");
-        $PDO->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-        //echo "se conecto";//probar conexion
-
-      } catch (PDOException $error)
-      {
-        echo "no se conecto a la base de datos codigo de error: ";
-        die($error->getMessage());
-      }
-
+require('../../controladores/rol-c.php');
 
 ?>
 <div class="container">
@@ -144,36 +55,23 @@ class RolModel
   </thead>
 <tbody>
 <?php 
-$consulta = "SELECT * FROM rol";//el nombre de la tabla
-$objeto = $PDO->prepare($consulta);
-$objeto->execute();
-$tabla = $objeto->fetchAll(PDO::FETCH_OBJ);
-
-foreach ($tabla as $fila )
-{
-            $rol = new Rol();//se instancia la clase que se esta haciendo
-            $rol->__SET('id_rol', $fila->ID_Rol);//se llama el campo de la tabla que corresponda con el atributo de la clase
-            $rol->__SET('tipo_rol',$fila->Tipo_Rol);//se repite segun los campos que hayan en la tabla
-            $rol->__SET('estado',$fila->Estado_Rol);//se repite segun los campos que hayan en la tabla
-            $rol->__SET('fechaCreacion',$fila->FechaDeCreacion_Rol);
-    $result[] = $rol;
-  }
-foreach( $result as $fila){?>
-  <tr>
+foreach( $modelo->imprimirTabla() as $fila){?>
+  <tr <?php echo $fila->__GET('estado')== 'inactivo' ? "class='deep-orange lighten-4'":''?>>
     <td class="oculto"><?php echo $fila->__GET('id_rol');?></td>
     <td><?php echo $fila->__GET('tipo_rol');?></td>
     <td><?php echo $fila->__GET('estado')?></td>
     <td><?php echo $fila->__GET('fechaCreacion')?></td>
+    
     <td>
-      <a href="#?ac=editar&id=<?php echo $fila->__GET('id_rol')?>" name="boton" class="waves-effect waves-blue btn-flat grey-text text-darken-1"><i class="material-icons">edit</i></a>
+      <a href="?ac=editar&id=<?php echo $fila->__GET('id_rol')?>" name="boton" class="waves-effect waves-blue btn-flat grey-text text-darken-1"><i class="material-icons">edit</i></a>
     </td>
-    <td>
-      <a href="#?ac=eliminar&id=<?php echo $fila->__GET('id_rol');?>" name="boton" class="waves-effect waves-red btn-flat"><i class="material-icons">delete</i></a>
-    </td>
+
   </tr>
 <?php }?>
 </tbody>
 </table>
+
+
 
 
 
