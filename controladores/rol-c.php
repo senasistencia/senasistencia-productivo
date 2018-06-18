@@ -6,24 +6,23 @@ require("../../app_data/config.php");
 $rol = new Rol();//reemplazar $programa y xNombreClase por el nombre de la clase
 $modelo = new RolModel($DB_server,$DB_puerto,$DB_baseDatos,$DB_user,$DB_pass);
 
-if (isset($_REQUEST['ac']))
+if (isset($_REQUEST['action']))
 {
 
-  switch ($_REQUEST['ac']) {
+  switch ($_REQUEST['action']) {
     case 'registrar':
-    $rol->__SET('id_rol',$_REQUEST['id']);
-    $rol->__SET('tipo_rol',$_REQUEST['tipo_rol']);
+    $rol->__SET('tipo_rol',               $_REQUEST['tipo_rol']);
     if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
     $rol->__SET('estado',$estado);
     $rol->__SET('fechaCreacion', date("y/m/d"));
-      $modelo->guardar($rol);
+    $modelo->guardar($rol);
       
       header("Location: rol-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
       
     break;
    case 'actualizar':
-   $rol->__SET('id_rol',$_REQUEST['id']);
-   $rol->__SET('tipo_rol',$_REQUEST['tipo_rol']);
+   $rol->__SET('id_rol',                 $_REQUEST['id_rol']);
+   $rol->__SET('tipo_rol',               $_REQUEST['tipo_rol']);
    if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
    $rol->__SET('estado',$estado);
       $modelo->actualizar($rol);
