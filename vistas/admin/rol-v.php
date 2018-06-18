@@ -90,62 +90,7 @@ class RolModel
         die($error->getMessage());
       }
 
-$rol = new Rol();//reemplazar $programa y xNombreClase por el nombre de la clase
 
-
-if (isset($_REQUEST['ac']))
-{
-
-  switch ($_REQUEST['ac']) {
-    case 'registrar':
-
-      $rol->__SET('id_rol',$_REQUEST['id']);
-      $rol->__SET('tipo_rol',$_REQUEST['tipo_rol']);
-      if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
-      $rol->__SET('estado',$estado);
-      $rol->__SET('fechaCreacion', date("y/m/d"));
-      $consulta = "INSERT INTO rol (ID_Rol,Tipo_Rol,Estado_Rol,FechaDeCreacion_Rol) VALUES (?,?,?,?)";
-      $objeto = $PDO->prepare($consulta);
-      $objeto->execute(array( $rol->__GET('id_rol'),$rol->__GET('tipo_rol'),$rol->__GET('estado'),$rol->__GET('fechaCreacion')));
-      header("Location: rol-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
-      
-    break;
-   case 'actualizar':
-      $rol->__SET('id_rol',$_REQUEST['id']);
-      $rol->__SET('tipo_rol',$_REQUEST['tipo_rol']);
-      if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
-      $rol->__SET('estado',$estado);
-      $consulta = "UPDATE rol SET tipo_rol = ? , Estado_Rol = ? WHERE ID_Rol = ?";
-      $objeto = $PDO->prepare($consulta);
-      $objeto->execute(array( $rol->__GET('tipo_rol'),$rol->__GET('estado'),$programa->__GET('id_rol')));
-   
-    header("Location: rol-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
-
-    break;
-    case 'editar':
-      $consulta ="SELECT*FROM rol WHERE ID_Rol = ?";
-      $objeto = $this->PDO->prepare($consulta);
-      $objeto->execute(array($_REQUEST['id']));
-      $fila= $objeto->fetch(PDO::FETCH_OBJ);
-
-            $rol->__SET('id_rol', $fila->ID_Rol);//se llama el campo de la tabla que corresponda con el atributo de la clase
-            $rol->__SET('tipo_rol',$fila->Tipo_Rol);//se repite segun los campos que hayan en la tabla
-            $rol->__SET('estado',$fila->Estado_Rol);//se repite segun los campos que hayan en la tabla
-            $rol->__SET('fechaCreacion',$fila->FechaDeCreacion_Rol);
-
-
-      //header("Location: programa-v.php");
-    break;
-    case 'eliminar':
-      $modelo->eliminar($_REQUEST['id']);
-      header("Location: ../vistas/admin/rol-v.php");
-    break;
-    default:
-
-    break;
-  }
-
-}
 ?>
 <div class="container">
   <div class="row">

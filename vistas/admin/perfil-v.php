@@ -90,63 +90,7 @@ class PerfilModel
         die($error->getMessage());
       }
 
-$perfil = new Perfil();//reemplazar $programa y xNombreClase por el nombre de la clase
 
-
-if (isset($_REQUEST['ac']))
-{
-
-  switch ($_REQUEST['ac']) {
-    case 'registrar':
-
-      $perfil->__SET('id_perfil',$_REQUEST['id']);
-      $perfil->__SET('tipo_perfil',$_REQUEST['tipo_perfil']);
-      if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
-      $perfil->__SET('estado',$estado);
-      $perfil->__SET('fechaCreacion', date("y/m/d"));
-      $consulta = "INSERT INTO perfil (ID_Perfil,Tipo_Perfil,Estado_Perfil,FechaDeCreacion_Perfil) VALUES (?,?,?,?)";
-      $objeto = $PDO->prepare($consulta);
-      $objeto->execute(array( $perfil->__GET('id_perfil'),$perfil->__GET('tipo_perfil'),$perfil->__GET('estado'),$perfil->__GET('fechaCreacion')));
-      header("Location: perfil-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
-      
-    break;
-   case 'actualizar':
-      $perfil->__SET('id_perfil',$_REQUEST['id']);
-      $perfil->__SET('tipo_perfil',$_REQUEST['tipo_perfil']);
-      if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
-      $perfil->__SET('estado',$estado);
-      $consulta = "UPDATE perfil SET Tipo_Perfil = ? , Estado_Perfil = ? WHERE ID_Perfil = ?";
-      $objeto = $PDO->prepare($consulta);
-      $objeto->execute(array( $perfil->__GET('tipo_perfil'),$perfil->__GET('estado'),$perfil->__GET('id_perfil')));
-   
-    header("Location: perfil-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
-
-    break;
-    case 'editar':
-      $consulta ="SELECT*FROM perfil WHERE ID_Perfil = ?";
-      $objeto = $this->PDO->prepare($consulta);
-      $objeto->execute(array($_REQUEST['id']));
-      $fila= $objeto->fetch(PDO::FETCH_OBJ);
-
-      
-            $perfil->__SET('id_perfil', $fila->ID_Perfil);//se llama el campo de la tabla que corresponda con el atributo de la clase
-            $perfil->__SET('tipo_perfil',$fila->Tipo_Perfil);//se repite segun los campos que hayan en la tabla
-            $perfil->__SET('estado',$fila->Estado_Perfil);//se repite segun los campos que hayan en la tabla
-            $perfil->__SET('fechaCreacion',$fila->FechaDeCreacion_Perfil);
-
-
-      //header("Location: programa-v.php");
-    break;
-    case 'eliminar':
-      $modelo->eliminar($_REQUEST['id']);
-      header("Location: ../vistas/admin/perfil-v.php");
-    break;
-    default:
-
-    break;
-  }
-
-}
 ?>
 <div class="container">
   <div class="row">

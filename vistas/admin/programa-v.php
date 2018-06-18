@@ -90,62 +90,6 @@ class ProgramaModel
         die($error->getMessage());
       }
 
-$programa = new ProgramaFormacion();//reemplazar $programa y xNombreClase por el nombre de la clase
-
-
-if (isset($_REQUEST['ac']))
-{
-
-  switch ($_REQUEST['ac']) {
-    case 'registrar':
-
-      $programa->__SET('id_programa',$_REQUEST['id']);
-      $programa->__SET('nombre',$_REQUEST['nombre']);
-      if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
-      $programa->__SET('estado',$estado);
-      $programa->__SET('fechaCreacion', date("y/m/d"));
-      $consulta = "INSERT INTO programa_formacion (ID_Programa,Nombre_Programa,Estado_Programa,FechaDeCreacion_Programa) VALUES (?,?,?,?)";
-      $objeto = $PDO->prepare($consulta);
-      $objeto->execute(array( $programa->__GET('id_programa'),$programa->__GET('nombre'),$programa->__GET('estado'),$programa->__GET('fechaCreacion')));
-      header("Location: programa-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
-      
-    break;
-   case 'actualizar':
-      $programa->__SET('id_programa',$_REQUEST['id']);
-      $programa->__SET('nombre',$_REQUEST['nombre']);
-      if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
-      $programa->__SET('estado',$estado);
-      $consulta = "UPDATE programa_formacion SET Nombre_Programa = ? , Estado_Programa = ? WHERE ID_Programa = ?";
-      $objeto = $PDO->prepare($consulta);
-      $objeto->execute(array( $programa->__GET('nombre'),$programa->__GET('estado'),$programa->__GET('id_programa')));
-   
-    header("Location: programa-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
-
-    break;
-    case 'editar':
-      $consulta ="SELECT*FROM programa_formacion WHERE ID_Programa = ?";
-      $objeto = $this->PDO->prepare($consulta);
-      $objeto->execute(array($_REQUEST['id']));
-      $fila= $objeto->fetch(PDO::FETCH_OBJ);
-
-      $programa->__SET('id_programa', $fila->ID_Programa);//se llama el campo de la tabla que corresponda con el atributo de la clase
-      $programa->__SET('nombre',$fila->Nombre_Programa);//se repite segun los campos que hayan en la tabla
-      $programa->__SET('estado',$fila->Estado_Programa);//se repite segun los campos que hayan en la tabla
-      $programa->__SET('fechaCreacion',$fila->FechaDeCreacion_Programa);
-
-
-      //header("Location: programa-v.php");
-    break;
-    case 'eliminar':
-      $modelo->eliminar($_REQUEST['id']);
-      header("Location: ../vistas/admin/programa-v.php");
-    break;
-    default:
-
-    break;
-  }
-
-}
 ?>
 <div class="container">
   <div class="row">
