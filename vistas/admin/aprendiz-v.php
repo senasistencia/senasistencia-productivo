@@ -15,7 +15,7 @@ require('../../controladores/aprendiz-c.php');
                 </div>
                 <div class="divider"></div>
                 <div class="section">
-                  <input type="hidden" name="id" value="<?php echo $aprendiz->__GET('documentoAprendiz');?>" />                         
+                  <input type="hidden" name="documentoAprendiz" value="<?php echo $aprendiz->__GET('documentoAprendiz');?>" />                         
                   
                   <label>Tipo de documento:</label>
                   <select name="FK_tipoDocumento">
@@ -73,8 +73,8 @@ require('../../controladores/aprendiz-c.php');
 <table class="striped bordered responsive-table">
   <thead>
   <tr>
-    <th class="oculto">id</th>
-    <th>ProgramaTipo de documento</th>
+    <th class="oculto">documentoAprendiz</th>
+    <th>Tipo de documento</th>
     <th>Documento</th>
     <th>Primer Nombre</th>
     <th>Segundo Nombre</th>
@@ -104,7 +104,7 @@ foreach( $modelo->imprimirTabla() as $fila){?>
     <td><?php echo $fila->__GET('fechaCreacion')?></td>
     
     <td>
-      <a href="?ac=editar&id=<?php echo $fila->__GET('documentoAprendiz')?>" name="boton" class="waves-effect waves-blue btn-flat grey-text text-darken-1"><i class="material-icons">edit</i></a>
+      <a href="?action=editar&documentoAprendiz=<?php echo $fila->__GET('documentoAprendiz')?>" name="boton" class="waves-effect waves-blue btn-flat grey-text text-darken-1"><i class="material-icons">edit</i></a>
     </td>
 
   </tr>

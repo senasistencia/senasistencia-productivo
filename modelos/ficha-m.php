@@ -50,16 +50,18 @@ class FichaModel
 
     public function guardar(Ficha $ficha)
     {
+      try
+      {
         $consulta = "INSERT INTO ficha (ID_Ficha,FK_Programa,Num_Ficha,Grupo_Ficha,Jornada_Ficha,Trimestre_Ficha,Estado_Ficha,FechaDeCreacion_Ficha) VALUES (?,?,?,?,?,?,?,?)";
-        $objeto = $this->PDO->prepare($consulta);
-        $objeto->execute(array( $ficha->__GET('id_ficha'),$ficha->__GET('FK_programa'),$ficha->__GET('num_ficha'),
-        $ficha->__GET('grupo'), $ficha->__GET('jornada'),$ficha->__GET('trimestre'),
-        $ficha->__GET('estado'),$ficha->__GET('fechaCreacion')));
-
-    
+        $this->PDO->prepare($consulta)
+        ->execute(array($ficha->__GET('id_ficha'),$ficha->__GET('FK_programa'),$ficha->__GET('num_ficha'),$ficha->__GET('grupo'), $ficha->__GET('jornada'),$ficha->__GET('trimestre'),$ficha->__GET('estado'),$ficha->__GET('fechaCreacion')));    
     }
-
-   
+     catch (Exception $e)
+      {
+        die($e->getMessage());
+      }
+    }
+       
     public function actualizar(Ficha $ficha)
     {
         $consulta = "UPDATE ficha SET FK_Programa = ? , Num_Ficha = ? , Grupo_Ficha = ? , Jornada_Ficha = ? , Trimestre_Ficha = ?, Estado_Ficha = ? WHERE ID_Ficha = ?";
@@ -68,9 +70,6 @@ class FichaModel
         $ficha->__GET('grupo'),$ficha->__GET('jornada'),$ficha->__GET('trimestre'),$ficha->__GET('estado'),$ficha->__GET('id_ficha')));
         echo "<script>alert('se actualizo perra')</script";
     }
-
-
-
 
     public function editar($id)
     {

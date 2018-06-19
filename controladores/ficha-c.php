@@ -12,12 +12,12 @@ if (isset($_REQUEST['ac']))
   switch ($_REQUEST['ac']) {
     case 'registrar':
 
-      $ficha->__SET('id_ficha',                     $_REQUEST['id']);
-      $ficha->__SET('FK_programa',                  $_REQUEST['FK_programa']);
-      $ficha->__SET('num_ficha',                    $_REQUEST['num_ficha']);
-      $ficha->__SET('grupo',                        $_REQUEST['grupo']);
-      $ficha->__SET('jornada',                      $_REQUEST['jornada']);
-      $ficha->__SET('trimestre',                    $_REQUEST['trimestre']);
+      $ficha->__SET('id_ficha',$_REQUEST['id']);
+      $ficha->__SET('FK_programa',$_REQUEST['FK_programa']);
+      $ficha->__SET('num_ficha',$_REQUEST['num_ficha']);
+      $ficha->__SET('grupo',$_REQUEST['grupo']);
+      $ficha->__SET('jornada',$_REQUEST['jornada']);
+      $ficha->__SET('trimestre',$_REQUEST['trimestre']);
       if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
       $ficha->__SET('estado',$estado);
       $ficha->__SET('fechaCreacion', date("y/m/d"));

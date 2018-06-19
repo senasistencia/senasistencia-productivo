@@ -28,6 +28,8 @@ class RolModel
      foreach ($consulta->fetchAll(PDO::FETCH_OBJ) as $fila )
       {
           $rol = new Rol();//se instancia la clase que se esta haciendo
+          $rol->__SET('id_rol', $fila->ID_Rol);//se llama el campo de la tabla que corresponda con el atributo de la clase
+
           $rol->__SET('tipo_rol', $fila->Tipo_Rol);//se llama el campo de la tabla que corresponda con el atributo de la clase
           $rol->__SET('estado',$fila->Estado_Rol == 0 ? 'inactivo':'activo');//se repite segun los campos que hayan en la tabla
           $rol->__SET('fechaCreacion',$fila->FechaDeCreacion_Rol);
@@ -62,30 +64,21 @@ class RolModel
    
     public function actualizar(Rol $rol)
     {
-      try
-      {
+      
         $consulta = "UPDATE rol SET Tipo_Rol = ? , Estado_Rol = ? WHERE ID_Rol = ?";
-        $this->PDO->prepare($consulta)
-        ->execute(array( $rol->__GET('tipo_rol'),$rol->__GET('estado'),
-        $rol->__GET('id_rol')));
-        echo "<script>alert('se actualizo el registro')</script";
+        $objeto = $this->PDO->prepare($consulta);
+        $objeto->execute(array($rol->__GET('tipo_rol'),$rol->__GET('estado'),$rol->__GET('id_rol')));
+        echo "<script>alert('se actualizo el registro')</script";       
+    
     }
-    catch (Exception $e)
-      {
-        die($e->getMessage());
-      }
-    }
-
-
-
-
     public function editar($id)
     {
       try
       {
-        $consulta = $this->PDO->prepare("SELECT*FROM rol WHERE ID_Rol = ?");
-          $consulta->execute(array($id));
-          $fila= $consulta->fetch(PDO::FETCH_OBJ);
+        $consulta ="SELECT*FROM rol WHERE ID_Rol = ?";
+          $objeto = $this->PDO->prepare($consulta);
+          $objeto->execute(array($id));
+          $fila= $objeto->fetch(PDO::FETCH_OBJ);
 
           $rol = new Rol();//se instancia la clase que se esta haciendo
           $rol->__SET('id_rol', $fila->ID_Rol);//se llama el campo de la tabla que corresponda con el atributo de la clase
@@ -94,12 +87,10 @@ class RolModel
           $rol->__SET('fechaCreacion',$fila->FechaDeCreacion_Rol);
           //repetir segun los campos de la tabla
           
-          return $rol;
-
-      } catch (Exception $e) {
+        } catch (Exception $e) {
           die($e->getMessage());
       }
-      
+      return $rol;
     }
 
 }
