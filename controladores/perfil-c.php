@@ -21,23 +21,23 @@ if (isset($_REQUEST['action']))
       header("Location: ../../vistas/admin/perfil-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
       
     break;
-   case 'actualizar':
-   $perfil->__SET('id_perfil',                 $_REQUEST['id_perfil']);
-   $perfil->__SET('tipo_perfil',               $_REQUEST['tipo_perfil']);
-   if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
-   $perfil->__SET('estado',$estado);
-      $modelo->actualizar($perfil);
+    case 'actualizar':
+    $perfil->__SET('id_perfil',                      $_REQUEST['id']);
+    $perfil->__SET('tipo_perfil',                   $_REQUEST['tipo_perfil']);
+    if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
+    $perfil->__SET('estado',$estado);
+    $modelo->actualizar($perfil);
 
-    header("Location: ../../vistas/admin/perfil-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
+  header("Location: perfil-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
 
-    break;
-    case 'editar':
-      $perfil = $modelo->editar($_REQUEST['id']);
-    break;
-    default:
+  break;
+  case 'editar':
+    $perfil = $modelo->editar($_REQUEST['id']);
+  break;
+  default:
 
-    break;
-  }
+  break;
+}
 
 }
 ?>

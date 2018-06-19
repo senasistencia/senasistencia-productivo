@@ -21,23 +21,23 @@ if (isset($_REQUEST['action']))
       header("Location: rol-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
       
     break;
-   case 'actualizar':
-   $rol->__SET('id_rol',                 $_REQUEST['id_rol']);
-   $rol->__SET('tipo_rol',               $_REQUEST['tipo_rol']);
-   if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
-   $rol->__SET('estado',$estado);
-      $modelo->actualizar($rol);
+    case 'actualizar':
+    $rol->__SET('id_rol',                      $_REQUEST['id']);
+    $rol->__SET('tipo_rol',                   $_REQUEST['tipo_rol']);
+    if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
+    $rol->__SET('estado',$estado);
+    $modelo->actualizar($rol);
 
-    header("Location: rol-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
+  header("Location: rol-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
 
-    break;
-    case 'editar':
-      $rol = $modelo->editar($_REQUEST['id']);
-    break;
-    default:
+  break;
+  case 'editar':
+    $rol = $modelo->editar($_REQUEST['id']);
+  break;
+  default:
 
-    break;
-  }
+  break;
+}
 
 }
 ?>

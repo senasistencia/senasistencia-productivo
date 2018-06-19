@@ -1,102 +1,13 @@
-    <?php
+<?php
 require('header.php');
-require("../../clases/tipoDocumento.php");
-
-class DocumentoModel
-{
-//variable privada pdo
-    Private $PDO;
-    public function __construct()
-    {
-      try
-      { 
-        $this->PDO = new PDO("mysql:host=localhost;port=3306;dbname=senasistencia;charset=utf8","root","");
-        $this->PDO->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-        //echo "se conecto";//probar conexion
-
-      } catch (PDOException $error)
-      {
-        echo "no se conecto a la base de datos codigo de error: ";
-        die($error->getMessage());
-      }
-    }
-    //funcion para imprimir la tabla
-    public function imprimirTabla()
-    {
-
-      try
-      {
-        $consulta = "SELECT * FROM tipo_de_documento";//el nombre de la tabla
-        $objeto = $this->PDO->prepare($consulta);
-        $objeto->execute();
-        $tabla = $objeto->fetchAll(PDO::FETCH_OBJ);
-
-        foreach ($tabla as $fila )
-        {
-            $documento = new TipoDocumento();//se instancia la clase que se esta haciendo
-            $documento->__SET('id_tipoDocumento', $fila->ID_TipoDeDocumento);//se llama el campo de la tabla que corresponda con el atributo de la clase
-            $documento->__SET('nombreTipoDocumento',$fila->Nombre_TipoDeDocumento);//se repite segun los campos que hayan en la tabla
-            $documento->__SET('estado',$fila->Estado_TipoDeDocumento);//se repite segun los campos que hayan en la tabla
-            $documento->__SET('fechaCreacion',$fila->FechaDeCreacion_TipoDeDocumento);
-            $result[] = $documento;//se mete en el arreglo result[] la varible con la clase
-        }
-
-      } catch (Exception $e) {
-        die($e->getMessage());
-      }
-      return $result;//se devuelve el arreglo result
-    }
-
-    public function editar($id)
-    {
-      try
-      {
-          $consulta ="SELECT*FROM tipo_de_documento WHERE ID_TipoDeDocumento = ?";
-          $objeto = $this->PDO->prepare($consulta);
-          $objeto->execute(array($id));
-          $fila= $objeto->fetch(PDO::FETCH_OBJ);
-
-          $documento = new TipoDocumento();//se instancia la clase que se esta haciendo
-            $documento->__SET('id_tipoDocumento', $fila->ID_TipoDeDocumento);//se llama el campo de la tabla que corresponda con el atributo de la clase
-            $documento->__SET('nombreTipoDocumento',$fila->Nombre_TipoDeDocumento);//se repite segun los campos que hayan en la tabla
-            $documento->__SET('estado',$fila->Estado_TipoDeDocumento);//se repite segun los campos que hayan en la tabla
-            $documento->__SET('fechaCreacion',$fila->FechaDeCreacion_TipoDeDocumento);
-          //repetir segun los campos de la tabla
-
-      } catch (Exception $e) {
-          die($e->getMessage());
-      }
-      return $documento;
-    }
-
-   
-        
-       
-
-    
-  
-
-
-}
-    try
-      { 
-        $PDO = new PDO("mysql:host=localhost;port=3306;dbname=senasistencia;charset=utf8","root","");
-        $PDO->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-        //echo "se conecto";//probar conexion
-
-      } catch (PDOException $error)
-      {
-        echo "no se conecto a la base de datos codigo de error: ";
-        die($error->getMessage());
-      }
-
+require('../../controladores/tipoDocumento-c.php');
 
 ?>
 <div class="container">
   <div class="row">
-    <h3 class="center-align">Tipo de Documento</h3><div class="divider"></div>
+    <h3 class="center-align">Tipos de Documento</h3><div class="divider"></div>
     <div class="col s12 m6 push-m3 formulario card">
-        <form action="?ac=<?php echo $documento->__GET('id_tipoDocumento') > 0 ? 'actualizar' : 'registrar';?> " method="post">
+        <form action="?action=<?php echo $documento->__GET('id_tipoDocumento') > 0 ? 'actualizar' : 'registrar';?> " method="post">
           <div class="container">
             <div class="row">
                 <div class="section center-align">
@@ -104,11 +15,11 @@ class DocumentoModel
                 </div>
                 <div class="divider"></div>
                 <div class="section">
-                  <input type="hidden" name="id" value="<?php echo $documento->__GET('id_tipoDocumento');?>" />
-                  <input type="text" name="nombreTipoDocumento" placeholder="Tipo de documento" value="<?php echo $documento->__GET('nombreTipoDocumento');?>" />
+                <input type="hidden" name="id" value="<?php echo $documento->__GET('id_tipoDocumento');?>" />
+                  <input type="text" name="nombreTipoDocumento" placeholder="Tipo Documento" value="<?php echo $documento->__GET('nombreTipoDocumento');?>" />
 
                   <div class="col s12 m12 center-align">
-                    Estado del tipo de documento:
+                    Estado del Documento:
                     <div class="switch">
                       <label>
                         Inactivo
@@ -138,42 +49,28 @@ class DocumentoModel
     <th>Estado</th>
     <th>Fecha</th>
     <th>editar</th>
-    <th>eliminar</th>
 
     </tr>
   </thead>
 <tbody>
 <?php 
-$consulta = "SELECT * FROM tipo_de_documento";//el nombre de la tabla
-$objeto = $PDO->prepare($consulta);
-$objeto->execute();
-$tabla = $objeto->fetchAll(PDO::FETCH_OBJ);
-
-foreach ($tabla as $fila )
-{
-       $documento = new TipoDocumento();//se instancia la clase que se esta haciendo
-       $documento->__SET('id_tipoDocumento', $fila->ID_TipoDeDocumento);//se llama el campo de la tabla que corresponda con el atributo de la clase
-       $documento->__SET('nombreTipoDocumento',$fila->Nombre_TipoDeDocumento);//se repite segun los campos que hayan en la tabla
-       $documento->__SET('estado',$fila->Estado_TipoDeDocumento);//se repite segun los campos que hayan en la tabla
-       $documento->__SET('fechaCreacion',$fila->FechaDeCreacion_TipoDeDocumento);
-    $result[] = $documento;
-  }
-foreach( $result as $fila){?>
-  <tr>
+foreach( $modelo->imprimirTabla() as $fila){?>
+  <tr <?php echo $fila->__GET('estado')== 'inactivo' ? "class='deep-orange lighten-4'":''?>>
     <td class="oculto"><?php echo $fila->__GET('id_tipoDocumento');?></td>
     <td><?php echo $fila->__GET('nombreTipoDocumento');?></td>
     <td><?php echo $fila->__GET('estado')?></td>
     <td><?php echo $fila->__GET('fechaCreacion')?></td>
+    
     <td>
-      <a href="#?ac=editar&id=<?php echo $fila->__GET('id_tipoDocumento')?>" name="boton" class="waves-effect waves-blue btn-flat grey-text text-darken-1"><i class="material-icons">edit</i></a>
+      <a href="?action=editar&id=<?php echo $fila->__GET('id_tipoDocumento')?>" name="boton" class="waves-effect waves-blue btn-flat grey-text text-darken-1"><i class="material-icons">edit</i></a>
     </td>
-    <td>
-      <a href="#?ac=eliminar&id=<?php echo $fila->__GET('id_tipoDocumento');?>" name="boton" class="waves-effect waves-red btn-flat"><i class="material-icons">delete</i></a>
-    </td>
+
   </tr>
 <?php }?>
 </tbody>
 </table>
+
+
 
 
 
