@@ -105,7 +105,7 @@ class AprendizModel
           $aprendiz->__SET('correo', $fila->Correo_Aprendiz);//se llama el campo de la tabla que corresponda con el atributo de la clase
           $aprendiz->__SET('telefono', $fila->Telefono_Aprendiz);//se llama el campo de la tabla que corresponda con el atributo de la clase
           $aprendiz->__SET('FK_ficha', $fila->FK_Ficha);//se llama el campo de la tabla que corresponda con el atributo de la clase
-          $aprendiz->__SET('estado',$fila->Estado_Aprendiz == 0 ? 'inactivo':'activo');//se repite segun los campos que hayan en la tabla
+          $aprendiz->__SET('estado',$fila->Estado_Aprendiz);//se repite segun los campos que hayan en la tabla
           $aprendiz->__SET('fechaCreacion',$fila->FechaDeCreacion_Aprendiz);
           //repetir segun los campos de la tabla
           
@@ -114,7 +114,7 @@ class AprendizModel
       }
       return $aprendiz;
     }
-    public function consultartipdocumento()//reemplazar "XNombretabla" por el nombre de la tabla que correponda
+    public function consultartipodocumento()//reemplazar "XNombretabla" por el nombre de la tabla que correponda
     {
       try
       {

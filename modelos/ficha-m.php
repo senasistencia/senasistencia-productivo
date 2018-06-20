@@ -61,7 +61,7 @@ class FichaModel
         die($e->getMessage());
       }
     }
-       
+      
     public function actualizar(Ficha $ficha)
     {
         $consulta = "UPDATE ficha SET FK_Programa = ? , Num_Ficha = ? , Grupo_Ficha = ? , Jornada_Ficha = ? , Trimestre_Ficha = ?, Estado_Ficha = ? WHERE ID_Ficha = ?";

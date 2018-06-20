@@ -7,7 +7,7 @@ require('../../controladores/aprendiz-c.php');
   <div class="row">
     <h3 class="center-align">Aprendiz</h3><div class="divider"></div>
     <div class="col s12 m8 push-m2 formulario card">
-        <form action="?ac=<?php echo $aprendiz->__GET('documentoAprendiz') > 0 ? 'actualizar' : 'registrar';?> " method="post">
+        <form action="?ac=<?php echo $aprendiz->__GET('documentoAprendiz') ? 'actualizar' : 'registrar';?> " method="post">
           <div class="container">
             <div class="row">
                 <div class="section center-align">
@@ -15,12 +15,11 @@ require('../../controladores/aprendiz-c.php');
                 </div>
                 <div class="divider"></div>
                 <div class="section">
-                  <input type="hidden" name="documentoAprendiz" value="<?php echo $aprendiz->__GET('documentoAprendiz');?>" />                         
-                  
+                                    
                   <label>Tipo de documento:</label>
-                  <select name="FK_tipoDocumento">
+                  <select name="FK_tipoDocumento" >
                       <?php 
-                      $laconsulta = $modelo->consultartipdocumento();
+                      $laconsulta = $modelo->consultartipodocumento();
                       foreach ($laconsulta as $datos) {;?>
 
                         <option value="<?php echo $datos->ID_TipoDeDocumento ;?>" <?php echo $aprendiz->__GET('FK_tipoDocumento') == $datos->ID_TipoDeDocumento ? 'selected' : ''; ?> > <?php echo $datos->Nombre_TipoDeDocumento  ;?> </option>
@@ -36,7 +35,7 @@ require('../../controladores/aprendiz-c.php');
                   <input type="text" name="correo"            placeholder="Correo del Aprenfdiz"          value="<?php echo $aprendiz->__GET('correo');?>" />
                   <input type="text" name="telefono"          placeholder="Telefono del Aprendiz"         value="<?php echo $aprendiz->__GET('telefono');?>" />
                   <label>Ficha del Aprendiz:</label>
-                  <select name="FK_ficha">
+                  <select name="FK_ficha" >
                       <?php 
                       $laconsulta = $modelo->consultarficha();
                       foreach ($laconsulta as $datos) {;?>
@@ -91,7 +90,7 @@ require('../../controladores/aprendiz-c.php');
 <?php 
 
 foreach( $modelo->imprimirTabla() as $fila){?>
-  <tr <?php echo $fila->__GET('estado')== 'inactivo' ? "class='deep-orange lighten-4'":''?>>
+  <tr <?php echo $fila->__GET('estado') == 'inactivo' ? "class='deep-orange lighten-4'":''?>>
     <td><?php echo $fila->__GET('FK_tipoDocumento');?></td>
     <td><?php echo $fila->__GET('documentoAprendiz');?></td>
     <td><?php echo $fila->__GET('primerNombre')?></td>
@@ -104,7 +103,7 @@ foreach( $modelo->imprimirTabla() as $fila){?>
     <td><?php echo $fila->__GET('fechaCreacion')?></td>
     
     <td>
-      <a href="?action=editar&documentoAprendiz=<?php echo $fila->__GET('documentoAprendiz')?>" name="boton" class="waves-effect waves-blue btn-flat grey-text text-darken-1"><i class="material-icons">edit</i></a>
+      <a href="?ac=editar&doc=<?php echo $fila->__GET('documentoAprendiz')?>" name="boton" class="waves-effect waves-blue btn-flat grey-text text-darken-1"><i class="material-icons">edit</i></a>
     </td>
 
   </tr>

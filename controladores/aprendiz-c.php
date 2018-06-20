@@ -6,10 +6,10 @@ require("../../app_data/config.php");
 $aprendiz = new Aprendiz();//reemplazar $programa y xNombreClase por el nombre de la clase
 $modelo = new AprendizModel($DB_server,$DB_puerto,$DB_baseDatos,$DB_user,$DB_pass);
 
-if (isset($_REQUEST['action']))
+if (isset($_REQUEST['ac']))
 {
 
-  switch ($_REQUEST['action']) {
+  switch ($_REQUEST['ac']) {
     case 'registrar':
     $aprendiz->__SET('FK_tipoDocumento',$_REQUEST['FK_tipoDocumento']);
     $aprendiz->__SET('documentoAprendiz',$_REQUEST['documentoAprendiz']);
@@ -46,7 +46,7 @@ if (isset($_REQUEST['action']))
 
     break;
     case 'editar':
-      $aprendiz = $modelo->editar($_REQUEST['documentoAprendiz']);
+      $aprendiz = $modelo->editar($_REQUEST['doc']);
     break;
     default:
 
