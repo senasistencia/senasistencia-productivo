@@ -29,7 +29,7 @@ if ($llamarsesion[0]->Tipo_Rol !== 'Usuario')
   <li><a href="../../Cerrarsesion.php" class="blue-grey-text text-darken-4"><i class="material-icons left">transit_enterexit</i>Cerrar sesión</a></li> 
 </ul>
 <nav>
-    <div class="nav-wrapper blue-grey darken-4">
+    <div class="nav-wrapper azul darken-4">
       <img src="../../imagenes/logo-s.png" class="logo-h brand-logo">
       <a href="#" data-activates="menu-lateral" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">

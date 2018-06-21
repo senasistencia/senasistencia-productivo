@@ -17,7 +17,7 @@ $doc = $llamarsesion[0]->Documento_Cliente;
         <div class="col s12 m6 l4">          
             <div class="card">
               <div class="card-image">
-              <div class="activator tarjetaF blue-grey darken-1 white-text"><?php echo $ficha->num_ficha?></div>
+              <div class="activator tarjetaF verde white-text"><?php echo $ficha->num_ficha?></div>
               <a class="btn-floating halfway-fab waves-effect waves-light activator orange accent-3"><i class="material-icons">add</i></a>
               </div>
               <div class="card-content">
