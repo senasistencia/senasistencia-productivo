@@ -52,9 +52,11 @@ class FichaModel
     {
       try
       {
-        $consulta = "INSERT INTO ficha (ID_Ficha,FK_Programa,Num_Ficha,Grupo_Ficha,Jornada_Ficha,Trimestre_Ficha,Estado_Ficha,FechaDeCreacion_Ficha) VALUES (?,?,?,?,?,?,?,?)";
-        $this->PDO->prepare($consulta)
-        ->execute(array($ficha->__GET('id_ficha'),$ficha->__GET('FK_programa'),$ficha->__GET('num_ficha'),$ficha->__GET('grupo'), $ficha->__GET('jornada'),$ficha->__GET('trimestre'),$ficha->__GET('estado'),$ficha->__GET('fechaCreacion')));    
+        $consulta = "CALL sp_guardarFicha(?,?,?,?,?,?,?,?,NUll)";
+        $objeto = $this->PDO->prepare($consulta);
+        $objeto->execute(array($ficha->__GET('id_ficha'),$ficha->__GET('FK_programa'),$ficha->__GET('num_ficha'),$ficha->__GET('grupo'), $ficha->__GET('jornada'),$ficha->__GET('trimestre'),$ficha->__GET('estado'),$ficha->__GET('fechaCreacion')));
+        $id = $objeto->fetch(PDO::FETCH_OBJ); 
+        return $id->ultimo;
     }
      catch (Exception $e)
       {
@@ -110,7 +112,7 @@ class FichaModel
         die($e->getMessage());
       }
     }
-   
+   //funcion que me enlista las fichas asociadas al instructor 
     public function fichasAsoc($documento)
     {
       try{
@@ -135,6 +137,27 @@ class FichaModel
       }
       return $result;//se devuelve el arreglo result
     }
+
+   public function asocInstructor($documento,$id)
+   {
+     $consulta = "CALL sp_asocCliente_Ficha(?,?)";
+     $this->PDO->prepare($consulta)->execute(array($documento,$id));
+   }
+   
+   public function consultarusuario()//reemplazar "XNombretabla" por el nombre de la tabla que correponda
+   {
+     try
+     {
+       $consulta = "SELECT `Documento_Cliente`,`PrimerNombre_Cliente`,PrimerApellido_Cliente,SegundoApellido_Cliente FROM cliente inner join perfil 
+       on `FK_Perfil`= `ID_Perfil` and `Tipo_Perfil` = 'Instructor';";
+       $objeto = $this->PDO->prepare($consulta);
+       $objeto->execute();
+       $clficha = $objeto->fetchAll(PDO::FETCH_OBJ);
+       return $clficha;
+     } catch (Exception $e) {
+       die($e->getMessage());
+     }
+   }
 
 }
 ?> 

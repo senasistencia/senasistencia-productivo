@@ -21,9 +21,10 @@ if (isset($_REQUEST['ac']))
       if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
       $ficha->__SET('estado',$estado);
       $ficha->__SET('fechaCreacion', date("y/m/d"));
-      $modelo->guardar($ficha);
-      
-      header("Location: ficha-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
+      $ultimo = $modelo->guardar($ficha);
+      $cc = $_REQUEST['instasoc'];
+      $modelo->asocInstructor($cc,$ultimo);
+      header("Location: ficha-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista*/
       
     break;
    case 'actualizar':
