@@ -27,14 +27,12 @@ require('../../controladores/cliente-c.php');
                       <?php } ;?>
      
                   </select>                  
-                  <input type="text" name="documentoCliente" placeholder="Documento del Usuario"        value="<?php echo $cliente->__GET('documentoCliente');?>" />
-                  <input type="text" name="primerNombre"      placeholder="Primer nombre del Usuario"    value="<?php echo $cliente->__GET('primerNombre');?>" />
+                  <input type="text" name="documentoCliente" placeholder="Documento del Usuario*"    required="true"   value="<?php echo $cliente->__GET('documentoCliente');?>" />
+                  <input type="text" name="primerNombre"      placeholder="Primer nombre del Usuario*"  required="true"  value="<?php echo $cliente->__GET('primerNombre');?>" />
                   <input type="text" name="segundoNombre"     placeholder="Segundo nombre del Usuario"   value="<?php echo $cliente->__GET('segundoNombre');?>" />
-                  <input type="text" name="primerApellido"    placeholder="Primero Apellido del Usuario" value="<?php echo $cliente->__GET('primerApellido');?>" />
+                  <input type="text" name="primerApellido"    placeholder="Primero Apellido del Usuario*" required="true"value="<?php echo $cliente->__GET('primerApellido');?>" />
                   <input type="text" name="segundoApellido"   placeholder="Segundo apellido del Usuario" value="<?php echo $cliente->__GET('segundoApellido');?>" />
-                  <input type="text" name="correo"            placeholder="Correo del Usuario"          value="<?php echo $cliente->__GET('correo');?>" />
-                  <input type="text" name="telefono"          placeholder="Telefono del Usuario"         value="<?php echo $cliente->__GET('telefono');?>" />
-                  <label>Ficha del cliente:</label>
+                  <label>Perfil del usuario:</label>
                   <select name="FK_perfil" >
                       <?php 
                       $laconsulta = $modelo->consultarperfil();
@@ -44,8 +42,19 @@ require('../../controladores/cliente-c.php');
 
                       <?php } ;?>
      
-                  </select>  
-
+                  </select> 
+                  <input type="email" name="correo"            placeholder="Correo del Usuario*"     required="true"     value="<?php echo $cliente->__GET('correo');?>" />
+                  <input type="text" name="telefono"          placeholder="Telefono del Usuario"         value="<?php echo $cliente->__GET('telefono');?>" />
+                  
+                  <!--ingreso del rol al ususario-->
+                   <label>Rol del Usuario</label>
+                   <select name="rolusuario">
+                    <?php foreach($modelo->consultarrol() as $rol){?>
+                      <option value="<?php echo $rol->ID_Rol; ?>"><?php echo $rol->Tipo_Rol?> </option>
+                    <?php }?>                    
+                    
+                    </select>
+                     <input type="<?php echo isset($_GET['ac'])!='editar' ? 'password':'hidden' ?>" placeholder= "Ingrese la contraseña" name="pass"/>
                   <div class="col s12 m12 center-align">
                     Estado del Usuario:
                     <div class="switch">
@@ -82,6 +91,7 @@ require('../../controladores/cliente-c.php');
     <th>Correo</th>
     <th>Telefono</th>
     <th>Perfil</th>
+    <th>Estado</th>
     <th>Fecha</th>
     <th>editar</th>
     </tr>

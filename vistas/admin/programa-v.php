@@ -16,7 +16,7 @@ require('../../controladores/programa-c.php');
                 <div class="divider"></div>
                 <div class="section">
                 <input type="hidden" name="id" value="<?php echo $programa->__GET('id_programa');?>" />
-                  <input type="text" name="nombre" placeholder="Programa" value="<?php echo $programa->__GET('nombre');?>" />
+                  <input type="text" name="nombre" placeholder="Programa*" required="true" value="<?php echo $programa->__GET('nombre');?>" />
 
                   <div class="col s12 m12 center-align">
                     Estado del programa:

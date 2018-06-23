@@ -28,9 +28,9 @@ require('../../controladores/ficha-c.php');
                       <?php } ;?>
 
                   </select>                  
-                  <input type="text" name="grupo" placeholder="Grupo de la ficha" value="<?php echo $ficha->__GET('grupo');?>" />
-                  <input type="text" name="jornada" placeholder="Jornada de la ficha" value="<?php echo $ficha->__GET('jornada');?>" />
-                  <input type="text" name="trimestre" placeholder="trimestre de la ficha" value="<?php echo $ficha->__GET('trimestre');?>" />
+                  <input type="number" name="grupo" placeholder="Grupo de la ficha*" required="true" value="<?php echo $ficha->__GET('grupo');?>" />
+                  <input type="text" name="jornada" placeholder="Jornada de la ficha*" required="true"value="<?php echo $ficha->__GET('jornada');?>" />
+                  <input type="number" name="trimestre" placeholder="trimestre de la ficha*" required="true"value="<?php echo $ficha->__GET('trimestre');?>" />
                   <!--enlista los instuctores a asociar-->
                   <label>Instructores</label>
                    <select name="instasoc">

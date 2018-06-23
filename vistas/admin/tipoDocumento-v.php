@@ -16,7 +16,7 @@ require('../../controladores/tipoDocumento-c.php');
                 <div class="divider"></div>
                 <div class="section">
                 <input type="hidden" name="id" value="<?php echo $documento->__GET('id_tipoDocumento');?>" />
-                  <input type="text" name="nombreTipoDocumento" placeholder="Tipo Documento" value="<?php echo $documento->__GET('nombreTipoDocumento');?>" />
+                  <input type="text" name="nombreTipoDocumento" placeholder="Tipo Documento*" required="true" value="<?php echo $documento->__GET('nombreTipoDocumento');?>" />
 
                   <div class="col s12 m12 center-align">
                     Estado del Documento:

@@ -9,6 +9,8 @@
 
 DROP PROCEDURE IF EXISTS `sp_impClienteFicha`;
 CREATE PROCEDURE `sp_impClienteFicha`()
+BEGIN
 SELECT `PrimerNombre_Cliente`,SegundoNombre_Cliente,PrimerApellido_Cliente,SegundoApellido_Cliente,`Num_Ficha` FROM cliente_ficha 
 inner join cliente inner join ficha
 on `FK_DocCliente`= Documento_Cliente and `FK_Ficha` = `ID_Ficha`;
+END;

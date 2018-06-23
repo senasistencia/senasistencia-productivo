@@ -9,7 +9,11 @@
 
 DROP PROCEDURE IF EXISTS `sp_impUsuario`;
 CREATE PROCEDURE `sp_impUsuario`()
+BEGIN
 SELECT ID_Usuario,`Documento_Cliente`,`Password_Hash`,`Estado_Usuario`, `FechaDeCreacion_Usuario`
-FROM 
-usuario inner join cliente 
+FROM 
+
+usuario inner join cliente 
+
 on FK_DocCliente = Documento_Cliente;
+END;

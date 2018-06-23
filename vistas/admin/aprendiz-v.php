@@ -27,13 +27,13 @@ require('../../controladores/aprendiz-c.php');
                       <?php } ;?>
      
                   </select>                  
-                  <input type="text" name="documentoAprendiz" placeholder="Documento del Aprendiz"        value="<?php echo $aprendiz->__GET('documentoAprendiz');?>" />
-                  <input type="text" name="primerNombre"      placeholder="Primer nombre del Aprendiz"    value="<?php echo $aprendiz->__GET('primerNombre');?>" />
+                  <input type="text" name="documentoAprendiz" placeholder="Documento del Aprendiz*"  required="true"      value="<?php echo $aprendiz->__GET('documentoAprendiz');?>" />
+                  <input type="text" name="primerNombre"      placeholder="Primer nombre del Aprendiz*" required="true"   value="<?php echo $aprendiz->__GET('primerNombre');?>" />
                   <input type="text" name="segundoNombre"     placeholder="Segundo nombre del Aprendiz"   value="<?php echo $aprendiz->__GET('segundoNombre');?>" />
-                  <input type="text" name="primerApellido"    placeholder="Primero Apellido del Aprendiz" value="<?php echo $aprendiz->__GET('primerApellido');?>" />
+                  <input type="text" name="primerApellido"    placeholder="Primero Apellido del Aprendiz*" required="true" value="<?php echo $aprendiz->__GET('primerApellido');?>" />
                   <input type="text" name="segundoApellido"   placeholder="Segundo apellido del Aprendiz" value="<?php echo $aprendiz->__GET('segundoApellido');?>" />
-                  <input type="text" name="correo"            placeholder="Correo del Aprenfdiz"          value="<?php echo $aprendiz->__GET('correo');?>" />
-                  <input type="text" name="telefono"          placeholder="Telefono del Aprendiz"         value="<?php echo $aprendiz->__GET('telefono');?>" />
+                  <input type="email" name="correo"            placeholder="Correo del Aprenfdiz*"   required="true"       value="<?php echo $aprendiz->__GET('correo');?>" />
+                  <input type="text" name="telefono"          placeholder="Telefono del Aprendiz*"   required="true"      value="<?php echo $aprendiz->__GET('telefono');?>" />
                   <label>Ficha del Aprendiz:</label>
                   <select name="FK_ficha" >
                       <?php 

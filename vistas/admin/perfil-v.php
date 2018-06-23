@@ -16,7 +16,7 @@ require('../../controladores/perfil-c.php');
                 <div class="divider"></div>
                 <div class="section">
                 <input type="hidden" name="id" value="<?php echo $perfil->__GET('id_perfil');?>" />
-                  <input type="text" name="tipo_perfil" placeholder="Perfil" value="<?php echo $perfil->__GET('tipo_perfil');?>" />
+                  <input type="text" name="tipo_perfil" placeholder="Perfil*" required="true" value="<?php echo $perfil->__GET('tipo_perfil');?>" />
 
                   <div class="col s12 m12 center-align">
                     Estado del perfil:

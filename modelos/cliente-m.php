@@ -57,15 +57,14 @@ class ClienteModel
     {
       try
       {
-        $consulta = "INSERT INTO cliente (FK_TipoDeDocumento,Documento_Cliente,PrimerNombre_Cliente,
-        SegundoNombre_Cliente,PrimerApellido_Cliente,SegundoApellido_Cliente,Correo_Cliente,
-        Telefono_Cliente,FK_Perfil,Estado_Cliente,FechaDeCreacion_Cliente)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-        $this->PDO->prepare($consulta)
-        ->execute(array($cliente->__GET('FK_tipoDocumento'),$cliente->__GET('documentoCliente'),$cliente->__GET('primerNombre'),
+        $consulta = "CALL sp_guardarCliente(?,?,?,?,?,?,?,?,?,?,?,NULL)";
+        $objeto = $this->PDO->prepare($consulta);
+        $objeto->execute(array($cliente->__GET('FK_tipoDocumento'),$cliente->__GET('documentoCliente'),$cliente->__GET('primerNombre'),
         $cliente->__GET('segundoNombre'),$cliente->__GET('primerApellido'),$cliente->__GET('segundoApellido'),$cliente->__GET('correo'),
         $cliente->__GET('telefono'),$cliente->__GET('FK_perfil'),$cliente->__GET('estado'),$cliente->__GET('fechaCreacion')));    
-    }
+        $id = $objeto->fetch(PDO::FETCH_OBJ); 
+        return $id->documento;
+      }
      catch (Exception $e)
       {
         die($e->getMessage());
@@ -139,5 +138,36 @@ class ClienteModel
         die($e->getMessage());
       }
     }
+    public function asocRol($documen,$id)
+    {
+      $consulta = "CALL sp_asocCliente_Rol(?,?)";
+      $this->PDO->prepare($consulta)->execute(array($documen,$id));
+    }
+    
+    public function consultarrol()//reemplazar "XNombretabla" por el nombre de la tabla que correponda
+    {
+      try
+      {
+        $consulta = "SELECT * FROM rol;";
+        $objeto = $this->PDO->prepare($consulta);
+        $objeto->execute();
+        $cliente = $objeto->fetchAll(PDO::FETCH_OBJ);
+        return $cliente;
+      } catch (Exception $e) {
+        die($e->getMessage());
+      }
+    }
+    public function contrusuario($documento,$contrasena)
+    {
+      try
+      {
+      $consulta = "CALL sp_crearUsuario(?,?)";
+      $objeto=$this->PDO->prepare($consulta);
+      $objeto->execute(array($documento,$contrasena));      
+      } catch (Exception $e) {
+      die($e->getMessage());
+    }
+  }
+  
 }
 ?> 

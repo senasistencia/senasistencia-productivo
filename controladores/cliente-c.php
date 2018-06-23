@@ -23,8 +23,12 @@ if (isset($_REQUEST['ac']))
     if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
     $cliente->__SET('estado',$estado);
     $cliente->__SET('fechaCreacion', date("y/m/d"));
-    $modelo->guardar($cliente);
-      
+    $documento = $modelo->guardar($cliente);
+    $rol = $_REQUEST['rolusuario'];
+    $modelo->asocRol($documento,$rol);
+    $contr = $_REQUEST['pass']; 
+    $modelo->contrusuario($documento,$contr);
+          
       header("Location: cliente-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
       
     break;

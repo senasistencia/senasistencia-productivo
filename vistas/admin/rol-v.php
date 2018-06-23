@@ -16,7 +16,7 @@ require('../../controladores/rol-c.php');
                 <div class="divider"></div>
                 <div class="section">
                 <input type="hidden" name="id" value="<?php echo $rol->__GET('id_rol');?>" />
-                  <input type="text" name="tipo_rol" placeholder="Roles" value="<?php echo $rol->__GET('tipo_rol');?>" />
+                  <input type="text" name="tipo_rol" placeholder="Roles*"  required="true" value="<?php echo $rol->__GET('tipo_rol');?>" />
 
                   <div class="col s12 m12 center-align">
                     Estado del rol:
