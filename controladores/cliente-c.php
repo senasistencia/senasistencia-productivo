@@ -42,7 +42,7 @@ if (isset($_REQUEST['ac']))
    $cliente->__SET('correo',$_REQUEST['correo']);
    $cliente->__SET('telefono',$_REQUEST['telefono']);
    $cliente->__SET('FK_perfil',$_REQUEST['FK_perfil']);
-    if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
+   if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
     $cliente->__SET('estado',$estado);
       $modelo->actualizar($cliente);
 

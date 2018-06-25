@@ -55,26 +55,27 @@ require('../../controladores/cliente-c.php');
                     
                     </select>
                      <input type="<?php echo isset($_GET['ac'])!='editar' ? 'password':'hidden' ?>" placeholder= "Ingrese la contraseña" name="pass"/>
-                  <div class="col s12 m12 center-align">
-                    Estado del Usuario:
-                    <div class="switch">
-                      <label>
-                        Inactivo
-                        <input type="checkbox" <?php echo $cliente->__GET('estado') == 1 ? "checked=true" : ""; echo $cliente->__GET('estado') == '' ? "checked=true" : "";  ?> name="estado">
-                        <span class="lever"></span>
-                        Activo
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="center align col s12 margen">
-                  <button type="submit" class="btn cyan darken-4">Guardar</button>
-                </div>
-            </div>
-          </div>
-        </form>
-    </div> 
-    </div>
+                     
+                     <div class="col s12 m12 center-align">
+                     Estado del aprendiz:
+                     <div class="switch">
+                       <label>
+                         Inactivo
+                         <input type="checkbox" <?php echo $cliente->__GET('estado') == 1 ? "checked=true" : ""; echo $cliente->__GET('estado') == '' ? "checked=true" : "";  ?> name="estado">
+                         <span class="lever"></span>
+                         Activo
+                       </label>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="center align col s12 margen">
+                   <button type="submit" class="btn cyan darken-4">Guardar</button>
+                 </div>
+             </div>
+           </div>
+         </form>
+     </div> 
+     </div>
 
 <h3 class="center-align">Registros</h3>
 <div class="divider"></div>
