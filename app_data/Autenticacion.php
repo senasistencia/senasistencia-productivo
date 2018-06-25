@@ -8,7 +8,7 @@
       $con = $PDO->prepare($sql);
       $con->execute(array($usuario,$password));
       $resultado=$con->fetchall(PDO::FETCH_OBJ);
-      print_r($resultado);
+      //print_r($resultado);
 
       if ($resultado)
       {        

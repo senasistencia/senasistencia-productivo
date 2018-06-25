@@ -72,7 +72,7 @@ class FichaModel
         $ficha->__GET('grupo'),$ficha->__GET('jornada'),$ficha->__GET('trimestre'),$ficha->__GET('estado'),$ficha->__GET('id_ficha')));
         echo "<script>alert('se actualizo perra')</script";
     }
-
+ 
     public function editar($id)
     {
       try
@@ -158,6 +158,7 @@ class FichaModel
        die($e->getMessage());
      }
    }
+   
 
 }
 ?> 

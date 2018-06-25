@@ -13,7 +13,7 @@ $nficha = $_GET['f'];
     <div class="container">
       <div class="row"> 
     
-    <table class="striped bordered responsive-table col s10 right-align">
+    <table class="striped bordered responsive-table  right-align">
       <thead>
         <tr>
           <th>Nombre</th>
@@ -31,13 +31,14 @@ $nficha = $_GET['f'];
       <td>
       <p>
       <input type="checkbox" id="<?php echo $i?>" />
-        <label for="<?php echo $i ?>"></label>
+      <label for="<?php echo $i ?>"></label>
       </p>
       </td>
     </tr>
     <?php $i++; } ;?>
     </tbody>
     </table>
+    <input type="submit" class="btn col s12">
     </div>
     </div>
   </div>

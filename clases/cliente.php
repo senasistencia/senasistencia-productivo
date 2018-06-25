@@ -16,7 +16,7 @@
     #a llaves foraneas de la tabla
     private $FK_tipoDocumento;//llave foranea del tipo de documento
     private $FK_perfil;//llave foranea del perfil
-
+    private $FK_Rol;//no es una llave foranea en la base de datos
 
     //metodos
     public function __SET($atributo,$valor)

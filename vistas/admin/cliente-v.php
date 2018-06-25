@@ -43,14 +43,14 @@ require('../../controladores/cliente-c.php');
                       <?php } ;?>
      
                   </select> 
-                  <input type="email" name="correo"            placeholder="Correo del Usuario*"     required="true"     value="<?php echo $cliente->__GET('correo');?>" />
-                  <input type="text" name="telefono"          placeholder="Telefono del Usuario"         value="<?php echo $cliente->__GET('telefono');?>" />
+                  <input type="email" name="correo" placeholder="Correo del Usuario*" required="true" value="<?php echo $cliente->__GET('correo');?>" />
+                  <input type="text" name="telefono" placeholder="Telefono del Usuario" value="<?php echo $cliente->__GET('telefono');?>" />
                   
                   <!--ingreso del rol al ususario-->
                    <label>Rol del Usuario</label>
                    <select name="rolusuario">
                     <?php foreach($modelo->consultarrol() as $rol){?>
-                      <option value="<?php echo $rol->ID_Rol; ?>"><?php echo $rol->Tipo_Rol?> </option>
+                      <option value="<?php echo $rol->ID_Rol; ?>" <?php echo $cliente->__GET('FK_Rol') == $rol->ID_Rol ? 'selected' : ''; ?> ><?php echo $rol->Tipo_Rol?> </option>
                     <?php }?>                    
                     
                     </select>

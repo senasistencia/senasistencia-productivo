@@ -24,10 +24,11 @@ $doc = $llamarsesion[0]->Documento_Cliente;
                 <span class="card-title grey-text text-darken-4 truncate fuente" title="<?php echo $ficha->FK_programa?>"><?php echo $ficha->FK_programa?></span>    
               </div>
               <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4 fuente truncate"><i class="material-icons right">close</i><?php echo $ficha->FK_programa?></span>
-                <p>¿Que vamos hacer?</p>
-                <a class="waves-effect btn z-depth-0 col s12  orange accent-3" href="listado.php?f=<?php echo $ficha->id_ficha?>">Listado<i class="material-icons right tiny">format_list_bulleted</i></a>
-                <a class="waves-effect btn z-depth-0 col s12 blue-grey darken-1" href="">Editar<i class="material-icons right">create</i></a>
+                <span class="card-title grey-text text-darken-4 fuente"><i class="material-icons right">close</i>¿Que vamos hacer?</span>
+                <br />
+                <a class="waves-effect btn-flat z-depth-0 col s12 h-n" href="listado.php?f=<?php echo $ficha->id_ficha?>">Listado<i class="material-icons right tiny">assignment_ind</i></a>
+                <a class="waves-effect btn-flat z-depth-0 col s12 h-a" href="">Editar<i class="material-icons right">create</i></a>
+                <a class="waves-effect btn-flat z-depth-0 col s12 h-v" href="">consultar<i class="material-icons right">event_busy</i></a>
               </div>
             </div>
         </div>

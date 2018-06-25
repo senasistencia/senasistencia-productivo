@@ -83,7 +83,7 @@ class RolModel
           $rol = new Rol();//se instancia la clase que se esta haciendo
           $rol->__SET('id_rol', $fila->ID_Rol);//se llama el campo de la tabla que corresponda con el atributo de la clase
           $rol->__SET('tipo_rol', $fila->Tipo_Rol);//se llama el campo de la tabla que corresponda con el atributo de la clase
-          $rol->__SET('estado',$fila->Estado_Rol == 0 ? 'inactivo':'activo');//se repite segun los campos que hayan en la tabla
+          $rol->__SET('estado',$fila->Estado_Rol);//se repite segun los campos que hayan en la tabla
           $rol->__SET('fechaCreacion',$fila->FechaDeCreacion_Rol);
           //repetir segun los campos de la tabla
           

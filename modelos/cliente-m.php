@@ -82,14 +82,14 @@ class ClienteModel
         $objeto->execute(array($cliente->__GET('FK_tipoDocumento'),$cliente->__GET('primerNombre'),
         $cliente->__GET('segundoNombre'),$cliente->__GET('primerApellido'),$cliente->__GET('segundoApellido'),$cliente->__GET('correo'),
         $cliente->__GET('telefono'),$cliente->__GET('FK_perfil'),$cliente->__GET('estado'),$cliente->__GET('documentoCliente')));
-        echo "<script>alert('se actualizo el registro')</script";       
+            
     
     }
     public function editar($doc)
     {
       try
       {
-        $consulta ="SELECT*FROM cliente WHERE Documento_Cliente = ?";
+          $consulta ="CALL sp_editCliente(?);";
           $objeto = $this->PDO->prepare($consulta);
           $objeto->execute(array($doc));
           $fila= $objeto->fetch(PDO::FETCH_OBJ);
@@ -104,7 +104,8 @@ class ClienteModel
           $cliente->__SET('correo', $fila->Correo_Cliente);//se llama el campo de la tabla que corresponda con el atributo de la clase
           $cliente->__SET('telefono', $fila->Telefono_Cliente);//se llama el campo de la tabla que corresponda con el atributo de la clase
           $cliente->__SET('FK_perfil', $fila->FK_Perfil);//se repite segun los campos que hayan en la tabla
-          $cliente->__SET('fechaCreacion',$fila->FechaDeCreacion_Cliente);
+          $cliente->__SET('estado',$fila->Estado_Cliente);
+          $cliente->__SET('FK_Rol',$fila->FK_Rol);
           //repetir segun los campos de la tabla
           
         } catch (Exception $e) {
@@ -138,12 +139,13 @@ class ClienteModel
         die($e->getMessage());
       }
     }
-    public function asocRol($documen,$id)
+    public function asocRol($documen,$id_rol)
     {
       $consulta = "CALL sp_asocCliente_Rol(?,?)";
-      $this->PDO->prepare($consulta)->execute(array($documen,$id));
+      $this->PDO->prepare($consulta)->execute(array($documen,$id_rol));
     }
     
+
     public function consultarrol()//reemplazar "XNombretabla" por el nombre de la tabla que correponda
     {
       try
@@ -157,14 +159,27 @@ class ClienteModel
         die($e->getMessage());
       }
     }
+
     public function contrusuario($documento,$contrasena)
     {
       try
       {
-      $consulta = "CALL sp_crearUsuario(?,?)";
-      $objeto=$this->PDO->prepare($consulta);
-      $objeto->execute(array($documento,$contrasena));      
+        $consulta = "CALL sp_crearUsuario(?,?)";
+        $objeto=$this->PDO->prepare($consulta);
+        $objeto->execute(array($documento,$contrasena));      
       } catch (Exception $e) {
+        die($e->getMessage());
+      }
+  }
+
+  public function actualizarRol($documento,$id_Rol)
+  {
+    try
+    {
+      $consulta = "CALL sp_actCliente_Rol(?,?)";
+      $objeto =  $this->PDO->prepare($consulta);
+      $objeto->execute(array($documento,$id_Rol));
+    }catch(Exception $e){
       die($e->getMessage());
     }
   }
