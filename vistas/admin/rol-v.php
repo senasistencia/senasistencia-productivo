@@ -23,7 +23,7 @@ require('../../controladores/rol-c.php');
                     <div class="switch">
                       <label>
                         Inactivo
-                        <input type="checkbox" checked="true" name="estado" value="true">
+                        <input type="checkbox" <?php echo $rol->__GET('estado') == 1 ? "checked=true" : ""; echo $rol->__GET('estado') == '' ? "checked=true" : "";  ?> name="estado" value="true">
                         <span class="lever"></span>
                         Activo
                       </label>

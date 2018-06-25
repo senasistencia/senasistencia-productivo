@@ -12,7 +12,7 @@ main {
   background-color: #238276;
 }
 .verde{
-  background-color: rgb(89,181,72);
+  background-color: #58b548;
 }
 .borde{
   border:1px solid red;
@@ -69,6 +69,19 @@ background-color: rgba(255, 255,255, .2)
   margin-top: -85px;
   left: 33%;
 }
+.h-n:hover{
+  color: white !important;
+  background-color:#ef6c00 !important;
+}
+.h-a:hover{
+  color: white !important;
+  background-color:#238276 !important;
+}
+.h-v:hover{
+  color: white !important;
+  background-color: #58b548 !important;
+}
+
 .menu{
 
   height: 100%;

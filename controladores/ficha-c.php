@@ -8,7 +8,7 @@ $modelo = new FichaModel($DB_server,$DB_puerto,$DB_baseDatos,$DB_user,$DB_pass);
 
 if (isset($_REQUEST['ac']))
 {
-
+ 
   switch ($_REQUEST['ac']) {
     case 'registrar':
 
@@ -37,6 +37,7 @@ if (isset($_REQUEST['ac']))
       if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
       $ficha->__SET('estado',$estado);
       $modelo->actualizar($ficha);
+      
 
     header("Location: ficha-v.php");//reenplazar por  xnombreArchivo el nombre del archivo de la vista
 

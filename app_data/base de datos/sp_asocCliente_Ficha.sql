@@ -1,9 +1,4 @@
-﻿# Host: 127.0.0.1:3308  (Version 5.5.5-10.1.30-MariaDB)
-# Date: 2018-06-21 20:58:10
-# Generator: MySQL-Front 6.0  (Build 2.20)
-
-
-#
+﻿#
 # Procedure "sp_asocCliente_Ficha"
 #
 

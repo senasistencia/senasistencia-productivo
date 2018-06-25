@@ -23,7 +23,7 @@ require('../../controladores/perfil-c.php');
                     <div class="switch">
                       <label>
                         Inactivo
-                        <input type="checkbox" checked="true" name="estado" value="true">
+                        <input type="checkbox" <?php echo $perfil->__GET('estado') == 1 ? "checked=true" : ""; echo $perfil->__GET('estado') == '' ? "checked=true" : "";  ?> name="estado" value="true">
                         <span class="lever"></span>
                         Activo
                       </label>

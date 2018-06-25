@@ -82,7 +82,7 @@ class PerfilModel
           $perfil = new Perfil();//se instancia la clase que se esta haciendo
           $perfil->__SET('id_perfil', $fila->ID_Perfil);//se llama el campo de la tabla que corresponda con el atributo de la clase
           $perfil->__SET('tipo_perfil', $fila->Tipo_Perfil);//se llama el campo de la tabla que corresponda con el atributo de la clase
-          $perfil->__SET('estado',$fila->Estado_Perfil == 0 ? 'inactivo':'activo');//se repite segun los campos que hayan en la tabla
+          $perfil->__SET('estado',$fila->Estado_Perfil);//se repite segun los campos que hayan en la tabla
           $perfil->__SET('fechaCreacion',$fila->FechaDeCreacion_Perfil);
           //repetir segun los campos de la tabla
           

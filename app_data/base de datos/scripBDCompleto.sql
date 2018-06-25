@@ -233,116 +233,7 @@ CREATE TABLE `usuario` (
   KEY `fk_usuarios_cliente1_idx` (`FK_DocCliente`)
 ) ENGINE=InnoDB AUTO_INCREMENT= 0 DEFAULT CHARSET=utf8;
 
-########################## PROCEDIMIENTOS ALMACENADOS ############################
-
-#
-# Procedure "sp_validarUsuario"
-#
-
-DROP PROCEDURE IF EXISTS `sp_validarUsuario`;
-CREATE PROCEDURE `sp_validarUsuario`(IN _usuario BIGINT(16),IN _pass VARCHAR(100))
-BEGIN
-
-SELECT Documento_Cliente,PrimerNombre_Cliente,Tipo_Rol FROM cliente inner JOIN cliente_rol inner JOIN rol
-ON cliente.Documento_Cliente = cliente_rol.FK_DocCliente AND rol.ID_Rol =  cliente_rol.FK_Rol 
-WHERE Documento_Cliente = (SELECT FK_DocCliente FROM usuario WHERE usuario.FK_DocCliente = _usuario AND usuario.Password_Hash = SHA1(_pass));
-
-END;
-
-#
-# Procedure "sp_fichasAsoc"
-#
-
-DROP PROCEDURE IF EXISTS `sp_fichasAsoc`;
-CREATE PROCEDURE `sp_fichasAsoc`(IN _documento BIGINT(16))
-BEGIN
-
-SELECT ID_Ficha,Nombre_Programa as Programa ,Num_Ficha,Grupo_Ficha FROM ficha INNER JOIN cliente_ficha INNER JOIN cliente INNER JOIN programa_formacion
-ON ficha.ID_Ficha = cliente_ficha.FK_Ficha AND cliente.Documento_Cliente = cliente_ficha.FK_DocCliente AND programa_formacion.ID_Programa = ficha.FK_Programa WHERE cliente.Documento_Cliente = _documento;
-
-END;
-
-#
-# Procedure "sp_impFicha"
-#
-
-DROP PROCEDURE IF EXISTS `sp_impFicha`;
-CREATE PROCEDURE `sp_impFicha`()
-BEGIN
-
-SELECT ID_Ficha,Nombre_Programa,Num_Ficha, Grupo_Ficha, Jornada_Ficha, Trimestre_Ficha, Estado_Ficha, FechaDeCreacion_Ficha, FechaDeInactivacion_Ficha FROM 
-ficha INNER JOIN programa_formacion 
-ON FK_Programa = ID_Programa;
-
-END;
-#
-# Procedure "sp_impAprendiz"
-#
-
-DROP PROCEDURE IF EXISTS `sp_impAprendiz`;
-CREATE PROCEDURE sp_impAprendiz()
-BEGIN
-SELECT `Nombre_TipoDeDocumento`,`Documento_Aprendiz`,`PrimerNombre_Aprendiz`,`SegundoNombre_Aprendiz`, `PrimerApellido_Aprendiz`,
-`SegundoApellido_Aprendiz`,`Correo_Aprendiz`,`Telefono_Aprendiz`,`Num_Ficha`,`Estado_Aprendiz`,`FechaDeCreacion_Aprendiz`,`FechaDeInactivacion_Aprendiz`
-FROM 
-aprendiz INNER JOIN tipo_de_documento INNER JOIN ficha 
-ON FK_TipoDeDocumento = ID_TipoDeDocumento AND FK_Ficha = ID_Ficha;
-
-END;
-
-#
-# Procedure "sp_listadoA"
-#
-
-DROP PROCEDURE IF EXISTS `sp_listadoA`;
-CREATE PROCEDURE `sp_listadoA`(IN _idFicha BIGINT(16))
-BEGIN
-SELECT PrimerNombre_Aprendiz,PrimerApellido_Aprendiz FROM aprendiz
-WHERE Estado_aprendiz = 1 AND FK_Ficha = _idFicha;
-END;
-
-#
-# Procedure "sp_asocCliente_Ficha"
-#
-
-DROP PROCEDURE IF EXISTS `sp_asocCliente_Ficha`;
-CREATE PROCEDURE `sp_asocCliente_Ficha`(IN _doc BIGINT(16),IN _idficha BIGINT(16))
-BEGIN
-
-INSERT INTO cliente_ficha VALUES(_doc,_idficha); 
-
-END;
-
-#
-# Procedure "sp_guardarFicha"
-#
-
-DROP PROCEDURE IF EXISTS `sp_guardarFicha`;
-CREATE PROCEDURE `sp_guardarFicha`(IN _id BIGINT(16),IN _fkprog BIGINT(16),IN _nficha VARCHAR(30),IN _gru INT(11),IN _jorn VARCHAR(15),IN _tri INT(11),IN _est TINYINT(1),IN _fchC DATE,IN _fchI DATE)
-
-BEGIN
-
-INSERT INTO ficha VALUES(_id,_fkprog,_nficha,_gru,_jorn,_tri,_est,_fchC,_fchI); 
-
-SELECT LAST_INSERT_ID() as ultimo;
-
-END;
-
-#
-# Procedure "sp_crearUsuario"
-#
-
-DROP PROCEDURE IF EXISTS `sp_crearUsuario`;
-CREATE PROCEDURE `sp_crearUsuario`(IN _documento BIGINT(16),IN _pass VARCHAR(30))
-BEGIN
-
-INSERT INTO usuario VALUES (Null,_documento,SHA1(_pass),1,CURDATE(),NULL);
-
-END;
-
-
-
-########################### DATOS DE LA BASE DE DATOS SENASISTNECIA #############################
+########################## DATOS DE LA BASE DE DATOS SENASISTNECIA #############################
 
 
 #
@@ -510,4 +401,213 @@ VALUES
 (NULL,123456789,SHA1('1234'),1,'2018-05-04',NULL),
 (NULL,1023017475,SHA1('perras'),1,'2018-06-09',NULL),
 (NULL,1013633680,SHA1('admin123'),1,'2018-06-09',NULL);
+
+
+########################## PROCEDIMIENTOS ALMACENADOS ############################
+
+#
+# Procedure "sp_asocCliente_Rol"
+#
+
+DROP PROCEDURE IF EXISTS `sp_asocCliente_Rol`;
+CREATE PROCEDURE `sp_asocCliente_Rol`(IN _doc BIGINT(16),IN _idrol BIGINT(16))
+BEGIN
+
+INSERT INTO cliente_rol VALUES(_doc,_idrol); 
+
+END;
+
+#
+# Procedure "sp_asocCliente_Ficha"
+#
+
+DROP PROCEDURE IF EXISTS `sp_asocCliente_Ficha`;
+CREATE PROCEDURE `sp_asocCliente_Ficha`(IN _doc BIGINT(16),IN _idficha BIGINT(16))
+BEGIN
+
+INSERT INTO cliente_ficha VALUES(_doc,_idficha); 
+
+END;
+
+
+#
+# Procedure "sp_crearUsuario"
+#
+
+DROP PROCEDURE IF EXISTS `sp_crearUsuario`;
+CREATE PROCEDURE `sp_crearUsuario`(IN _documento BIGINT(16),IN _pass VARCHAR(30))
+BEGIN
+
+INSERT INTO usuario VALUES (Null,_documento,SHA1(_pass),1,CURDATE(),NULL);
+
+END;
+
+#
+# Procedure "sp_editCliente"
+#
+
+DROP PROCEDURE IF EXISTS `sp_editCliente`;
+CREATE PROCEDURE `sp_editCliente`(IN _doc BIGINT(16))
+BEGIN
+
+SELECT `FK_TipoDeDocumento`, `Documento_Cliente`, `PrimerNombre_Cliente`, `SegundoNombre_Cliente`, `PrimerApellido_Cliente`, `SegundoApellido_Cliente`, `Correo_Cliente`, `Telefono_Cliente`, `FK_Perfil`, `Estado_Cliente`, FK_Rol FROM cliente 
+INNER JOIN cliente_rol ON Documento_Cliente = cliente_rol.FK_DocCliente WHERE Documento_Cliente = _doc;
+
+END;
+
+#
+# Procedure "sp_fichasAsoc"
+#
+
+DROP PROCEDURE IF EXISTS `sp_fichasAsoc`;
+CREATE PROCEDURE `sp_fichasAsoc`(IN _documento BIGINT(16))
+BEGIN
+
+SELECT ID_Ficha,Nombre_Programa as Programa ,Num_Ficha,Grupo_Ficha FROM ficha INNER JOIN cliente_ficha INNER JOIN cliente INNER JOIN programa_formacion
+ON ficha.ID_Ficha = cliente_ficha.FK_Ficha AND cliente.Documento_Cliente = cliente_ficha.FK_DocCliente AND programa_formacion.ID_Programa = ficha.FK_Programa WHERE cliente.Documento_Cliente = _documento;
+
+END;
+
+#
+# Procedure "sp_guardarCliente"
+#
+
+DROP PROCEDURE IF EXISTS `sp_guardarCliente`;
+CREATE PROCEDURE `sp_guardarCliente`(IN _tpdoc BIGINT(16),IN _doc BIGINT(16),IN _pnom VARCHAR(60),IN _snom VARCHAR(60),IN _papll VARCHAR(60),IN _sapll VARCHAR(60),
+IN _corr VARCHAR(60),IN _tel VARCHAR(10),IN _pef BIGINT(16),in _est TINYINT(1),IN _fchC DATE,IN _fchI DATE)
+BEGIN
+
+INSERT INTO cliente  VALUES(_tpdoc,_doc,_pnom,_snom,_papll,_sapll, _corr,_tel,_pef,_est,_fchC,_fchI); 
+
+SELECT LAST_INSERT_ID(_doc) as documento;
+
+END;
+
+#
+# Procedure "sp_guardarFicha"
+#
+
+DROP PROCEDURE IF EXISTS `sp_guardarFicha`;
+CREATE PROCEDURE `sp_guardarFicha`(IN _id BIGINT(16),IN _fkprog BIGINT(16),IN _nficha VARCHAR(30),IN _gru INT(11),IN _jorn VARCHAR(15),IN _tri INT(11),IN _est TINYINT(1),IN _fchC DATE,IN _fchI DATE)
+BEGIN
+
+INSERT INTO ficha VALUES(_id,_fkprog,_nficha,_gru,_jorn,_tri,_est,_fchC,_fchI); 
+
+SELECT LAST_INSERT_ID() as ultimo;
+
+END;
+
+#
+# Procedure "sp_impAprendiz"
+#
+
+DROP PROCEDURE IF EXISTS `sp_impAprendiz`;
+CREATE PROCEDURE `sp_impAprendiz`()
+BEGIN
+
+SELECT `Nombre_TipoDeDocumento`,`Documento_Aprendiz`,`PrimerNombre_Aprendiz`,`SegundoNombre_Aprendiz`, `PrimerApellido_Aprendiz`,
+`SegundoApellido_Aprendiz`,`Correo_Aprendiz`,`Telefono_Aprendiz`,`Num_Ficha`,`Estado_Aprendiz`,`FechaDeCreacion_Aprendiz`,`FechaDeInactivacion_Aprendiz`
+FROM aprendiz INNER JOIN tipo_de_documento INNER JOIN ficha 
+ON FK_TipoDeDocumento = ID_TipoDeDocumento AND FK_Ficha = ID_Ficha;
+
+END;
+
+#
+# Procedure "sp_impCliente"
+#
+
+DROP PROCEDURE IF EXISTS `sp_impCliente`;
+CREATE PROCEDURE `sp_impCliente`()
+BEGIN
+
+SELECT `Nombre_TipoDeDocumento`,`Documento_Cliente`,`PrimerNombre_Cliente`,`SegundoNombre_Cliente`, `PrimerApellido_Cliente`,
+`SegundoApellido_Cliente`,`Correo_Cliente`,`Telefono_Cliente`,`Tipo_Perfil`,`Estado_Cliente`,`FechaDeCreacion_Cliente`,`FechaDeInactivacion_Cliente`
+
+FROM cliente INNER JOIN tipo_de_documento INNER JOIN perfil
+ON FK_TipoDeDocumento = ID_TipoDeDocumento AND `FK_Perfil` = `ID_Perfil`;
+
+END;
+
+#
+# Procedure "sp_impClienteFicha"
+#
+
+DROP PROCEDURE IF EXISTS `sp_impClienteFicha`;
+CREATE PROCEDURE `sp_impClienteFicha`()
+BEGIN
+
+SELECT `PrimerNombre_Cliente`,`SegundoNombre_Cliente`,`PrimerApellido_Cliente`,`SegundoApellido_Cliente`,`Num_Ficha` FROM cliente_ficha 
+INNER JOIN cliente INNER JOIN ficha
+ON `FK_DocCliente`= Documento_Cliente AND `FK_Ficha` = ID_Ficha;
+
+END;
+
+#
+# Procedure "sp_impClienteRol"
+#
+
+DROP PROCEDURE IF EXISTS `sp_impClienteRol`;
+CREATE PROCEDURE `sp_impClienteRol`()
+BEGIN
+
+SELECT `Documento_Cliente`,`Tipo_Rol` FROM cliente_rol 
+inner join cliente inner join rol
+on `FK_DocCliente`= Documento_Cliente and `FK_Rol` = `ID_Rol`;
+
+END;
+
+#
+# Procedure "sp_impFicha"
+#
+
+DROP PROCEDURE IF EXISTS `sp_impFicha`;
+CREATE PROCEDURE `sp_impFicha`()
+BEGIN
+
+SELECT ID_Ficha,Nombre_Programa,Num_Ficha, Grupo_Ficha, Jornada_Ficha, Trimestre_Ficha, Estado_Ficha, FechaDeCreacion_Ficha, FechaDeInactivacion_Ficha FROM 
+ficha inner join programa_formacion 
+on FK_Programa= ID_Programa;
+
+END;
+
+#
+# Procedure "sp_impUsuario"
+#
+
+DROP PROCEDURE IF EXISTS `sp_impUsuario`;
+CREATE PROCEDURE `sp_impUsuario`()
+BEGIN
+
+SELECT ID_Usuario,`Documento_Cliente`,`Password_Hash`,`Estado_Usuario`, `FechaDeCreacion_Usuario`
+FROM usuario INNER JOIN cliente ON FK_DocCliente = Documento_Cliente;
+
+END;
+
+#
+# Procedure "sp_listadoA"
+#
+DROP PROCEDURE IF EXISTS `sp_listadoA`;
+CREATE PROCEDURE `sp_listadoA`(IN _idFicha BIGINT(16))
+BEGIN
+
+SELECT PrimerNombre_Aprendiz,PrimerApellido_Aprendiz FROM aprendiz
+WHERE Estado_aprendiz = 1 AND FK_Ficha = _idFicha;
+
+END;
+
+#
+# Procedure "sp_validarUsuario"
+#
+
+DROP PROCEDURE IF EXISTS `sp_validarUsuario`;
+CREATE PROCEDURE `sp_validarUsuario`(IN _usuario BIGINT(16),IN _pass VARCHAR(100))
+BEGIN
+
+SELECT Documento_Cliente,PrimerNombre_Cliente,Tipo_Rol FROM cliente inner JOIN cliente_rol inner JOIN rol
+ON cliente.Documento_Cliente = cliente_rol.FK_DocCliente AND rol.ID_Rol =  cliente_rol.FK_Rol 
+WHERE Documento_Cliente = (SELECT FK_DocCliente FROM usuario WHERE usuario.FK_DocCliente = _usuario AND usuario.Password_Hash = SHA1(_pass));
+
+END;
+
+
 

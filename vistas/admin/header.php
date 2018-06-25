@@ -24,16 +24,25 @@ if ($llamarsesion[0]->Tipo_Rol != 'Administrador')
 		<link rel="stylesheet" href="../../css/estilos.css">
 </head>
 <body>
+<ul id="gestiones" class="dropdown-content">
+  <li><a href="aprendiz-v.php" class=""><i class="material-icons left">school</i>Aprendices</a></li>
+  <li><a href="cliente-v.php"><i class="material-icons left">group</i>Usuarios</a></li>
+  <li><a href="ficha-v.php"><i class="material-icons left">view_module</i>Fichas</a></li>
+  <li><a href="perfil-v.php"><i class="material-icons left">recent_actors</i>Perfiles</a></li>
+  <li><a href="programa-v.php"><i class="material-icons left">layers</i>Programas</a></li>
+  <li><a href="rol-v.php"><i class="material-icons left">verified_user</i>Roles</a></li>
+
+</ul>
 <ul id="miCuentaOp" class="dropdown-content">
-  <li><a href="#!" class="">Configuración<i class="material-icons left">settings</i></a></li>
-  <li><a href="../../Cerrarsesion.php">Cerrar sesión<i class="material-icons left">transit_enterexit</i></a></li> 
+  <li><a href="#!" class=""><i class="material-icons left">settings</i>Configuración</a></li>
+  <li><a href="../../Cerrarsesion.php"><i class="material-icons left">transit_enterexit</i>Cerrar sesión</a></li> 
 </ul>
 <nav>
     <div class="nav-wrapper cyan darken-4">
       <img src="../../imagenes/admin.png" class="logo-admin brand-logo">
       <a href="#" data-activates="menu-lateral" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-      <li><a href="badges.html">Excusas<i class="material-icons left">date_range</i></a></li>
+        <li><a class="dropdown-button" data-activates='gestiones'>Gestion<i class="material-icons left">account_balance</i></a></li>
         <li><a href="collapsible.html">Reportes<i class="material-icons left">assessment</i></a></li>
         <li><a class='dropdown-button' href='' data-activates='miCuentaOp'>Mi Cuenta<i class="material-icons left">account_circle</i></a></li>
       </ul>
