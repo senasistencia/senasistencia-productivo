@@ -5,9 +5,9 @@ require('../../controladores/cambiarContrasena-c.php');
 ?>
 <div class="container">
   <div class="row">
-    <h3 class="center-align">Roles</h3><div class="divider"></div>
+    <h3 class="center-align">Usuarios</h3><div class="divider"></div>
     <div class="col s12 m6 push-m3 formulario card">
-        <form action="?ac=<?php echo $cliente->__GET('id_usuario') > 0 ? 'actualizar' : 'registrar';?> " method="post">
+        <form action="?ac=<?php echo $cliente->__GET('id_usuario') == 0 ? 'actualizar' : 'registrar';?> " method="post">
           <div class="container">
             <div class="row">
                 <div class="section center-align">
@@ -20,7 +20,7 @@ require('../../controladores/cambiarContrasena-c.php');
                   <input type="password" name="password_hash" placeholder="Actualice contraseña*"  required="true" value="<?php echo $cliente->__GET('password_hash');?>" />
 
                   <div class="col s12 m12 center-align">
-                    Estado del rol:
+                    Estado del usuario:
                     <div class="switch">
                       <label>
                         Inactivo
