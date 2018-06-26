@@ -23,11 +23,12 @@ class UsuarioModel
     public function imprimirTabla()
     {
       try{
-        $consulta = $this->PDO->prepare("CALL sp_impUsuario()");//el nombre de la tabla
-        $consulta->execute();
-           
+      $consulta = "CALL sp_impUsuario()";//el nombre de la tabla
+      $objeto = $this->PDO->prepare($consulta);
+      $objeto->execute();
+      $tabla = $objeto->fetchAll(PDO::FETCH_OBJ);
       
-      foreach ($consulta->fetchAll(PDO::FETCH_OBJ) as $fila )
+      foreach ($tabla as $fila )
       {
           $usuario = new Usuario();//se instancia la clase que se esta haciendo
           $usuario->__SET('id_usuario', $fila->ID_Usuario);//se llama el campo de la tabla que corresponda con el atributo de la clase
@@ -35,21 +36,19 @@ class UsuarioModel
           $usuario->__SET('password_hash', $fila->Password_Hash);//se llama el campo de la tabla que corresponda con el atributo de la clase
           $usuario->__SET('estado',$fila->Estado_Usuario == 0 ? 'inactivo':'activo');//se repite segun los campos que hayan en la tabla
           $usuario->__SET('fechaCreacion',$fila->FechaDeCreacion_Usuario);
-          $result[] = $usuario;       
-          
+          $result[] = $usuario; 
         }
-        return $result;//se devuelve el arreglo result
-      } 
-      catch (Exception $e)
-      {
+
+      } catch (Exception $e) {
         die($e->getMessage());
       }
+      return $result;//se devuelve el arreglo result
+    }
       
-    }      
     public function actualizar(Usuario $usuario)
     {
       
-        $consulta = "UPDATE usuario SET Password_Hash = ? WHERE ID_Usuario = ?";
+        $consulta = "CALL sp_Actcontrasena(?,?)";
         $objeto = $this->PDO->prepare($consulta);
         $objeto->execute(array($usuario->__GET('password_hash'),$usuario->__GET('id_usuario')));
         echo "<script>alert('se actualizo el registro')</script";       
@@ -59,39 +58,23 @@ class UsuarioModel
     {
       try
       {
-        $consulta ="SELECT*FROM usuario WHERE ID_Usuario = ?";
-          $objeto = $this->PDO->prepare($consulta);
-          $objeto->execute(array($id));
-          $fila= $objeto->fetch(PDO::FETCH_OBJ);
-
-          $usuario = new Usuario();//se instancia la clase que se esta haciendo
-          $usuario->__SET('id_usuario', $fila->ID_Usuario);//se llama el campo de la tabla que corresponda con el atributo de la clase
-          $usuario->__SET('FK_docCliente', $fila->FK_DocCliente);//se llama el campo de la tabla que corresponda con el atributo de la clase
-          $usuario->__SET('password_hash', $fila->Password_Hash);//se llama el campo de la tabla que corresponda con el atributo de la clase
-          $usuario->__SET('estado',$fila->Estado_Usuario == 0 ? 'inactivo':'activo');//se repite segun los campos que hayan en la tabla
-          $usuario->__SET('fechaCreacion',$fila->FechaDeCreacion_Usuario);
-          //repetir segun los campos de la tabla
-          
-        } catch (Exception $e) {
-          die($e->getMessage());
-      }
-      return $usuario;
-    }
-    
-    
-   public function buscarusuario()//reemplazar "XNombretabla" por el nombre de la tabla que correponda
-    {
-      try
-      {
-        $consulta = "CALL sp_buscarUsuario()";
+        $consulta ="SELECT* FROM usuario WHERE ID_Usuario = ?";
         $objeto = $this->PDO->prepare($consulta);
-        $objeto->execute();
-        $usuario = $objeto->fetchAll(PDO::FETCH_OBJ);
-        return $usuario;
+        $objeto->execute(array($id));
+        $fila= $objeto->fetch(PDO::FETCH_OBJ);
+
+        $usuario = new Usuario();//se instancia la clase que se esta haciendo
+        $usuario->__SET('id_usuario', $fila->ID_Usuario);//se llama el campo de la tabla que corresponda con el atributo de la clase
+        $usuario->__SET('FK_docCliente', $fila->FK_DocCliente);//se llama el campo de la tabla que corresponda con el atributo de la clase
+        $usuario->__SET('password_hash', $fila->Password_Hash);//se llama el campo de la tabla que corresponda con el atributo de la clase
+        $usuario->__SET('estado',$fila->Estado_Usuario == 0 ? 'inactivo':'activo');//se repite segun los campos que hayan en la tabla
+        $usuario->__SET('fechaCreacion',$fila->FechaDeCreacion_Usuario);
+        //repetir segun los campos de la tabla
+        
       } catch (Exception $e) {
         die($e->getMessage());
-      }
     }
-  
-}
+    return $usuario;
+    }
+  }
 ?> 
