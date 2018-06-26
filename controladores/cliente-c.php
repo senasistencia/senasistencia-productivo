@@ -33,7 +33,6 @@ if (isset($_REQUEST['ac']))
       
     break;
    case 'actualizar':
-<<<<<<< HEAD
    $cliente->__SET('FK_tipoDocumento',$_REQUEST['FK_tipoDocumento']);
    $cliente->__SET('documentoCliente',$_REQUEST['documentoCliente']);
    $cliente->__SET('primerNombre',$_REQUEST['primerNombre']);
@@ -44,18 +43,6 @@ if (isset($_REQUEST['ac']))
    $cliente->__SET('telefono',$_REQUEST['telefono']);
    $cliente->__SET('FK_perfil',$_REQUEST['FK_perfil']);
    if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
-=======
-    $cliente->__SET('FK_tipoDocumento',$_REQUEST['FK_tipoDocumento']);
-    $cliente->__SET('documentoCliente',$_REQUEST['documentoCliente']);
-    $cliente->__SET('primerNombre',$_REQUEST['primerNombre']);
-    $cliente->__SET('segundoNombre',$_REQUEST['segundoNombre']);
-    $cliente->__SET('primerApellido',$_REQUEST['primerApellido']);
-    $cliente->__SET('segundoApellido',$_REQUEST['segundoApellido']);
-    $cliente->__SET('correo',$_REQUEST['correo']);
-    $cliente->__SET('telefono',$_REQUEST['telefono']);
-    $cliente->__SET('FK_perfil',$_REQUEST['FK_perfil']);
-    if(isset($_REQUEST['estado'])){$estado ='1';}else{ $estado ='0'; }
->>>>>>> 937b6a9c6fa8f2845efe5f61d2ec3ae839c166ce
     $cliente->__SET('estado',$estado);
     $modelo->actualizar($cliente);
     $doc = $_REQUEST['documentoCliente'];

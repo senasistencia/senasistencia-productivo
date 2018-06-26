@@ -35,7 +35,7 @@ require('../../controladores/ficha-c.php');
                   <label>Instructores</label>
                    <select name="instasoc">
                     <?php foreach($modelo->consultarusuario() as $instuctor){?>
-                      <option value="<?php echo $instuctor->Documento_Cliente; ?>" ><?php echo "CC: ".$instuctor->Documento_Cliente.", ".$instuctor->PrimerNombre_Cliente." ".$instuctor->PrimerApellido_Cliente." ".$instuctor->SegundoApellido_Cliente ?> </option>
+                      <option value="<?php echo $instuctor->Documento_Cliente; ?>" <?php echo $ficha->__GET('FK_DocCliente') == $datos->Documento_Cliente ? 'selected' : ''; ?> ><?php echo "CC: ".$instuctor->Documento_Cliente.", ".$instuctor->PrimerNombre_Cliente." ".$instuctor->PrimerApellido_Cliente." ".$instuctor->SegundoApellido_Cliente ?> </option>
                     <?php }?>                    
                      
                     </select>

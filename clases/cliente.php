@@ -18,6 +18,8 @@
     private $FK_perfil;//llave foranea del perfil
     private $FK_Rol;//no es una llave foranea en la base de datos
 
+    private $FK_DocCliente;
+
     //metodos
     public function __SET($atributo,$valor)
     {

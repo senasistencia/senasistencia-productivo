@@ -17,9 +17,10 @@
 	<body class="grey lighten-3">
 		<div class="container">
 			<div class="row">
+			
 				<form action="app_data/Autenticacion.php" method="post" class="card col s12 m8 push-m2 l6 push-l3 login z-depth-1 grey lighten-5">
 					<div class="section">
-						<img class="logo-login" src="imagenes/logo-login.png"/>
+					<img class="logo-login" src="imagenes/logo-login.png"/>
 					</div>
 					<div class="divider"></div>
 					<div class="section">	
@@ -30,7 +31,7 @@
 						</div>						
 						<div class="divider"></div>
 						<div class="section center-align">
-							<a href="" >Recuperar contraseña</a>
+							<!--<a href="" >Recuperar contraseña</a>-->
 						</div>
 					</div>
 				</form>

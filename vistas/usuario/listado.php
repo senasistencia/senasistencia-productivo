@@ -16,6 +16,7 @@ $nficha = $_GET['f'];
     <table class="striped bordered responsive-table  right-align">
       <thead>
         <tr>
+          <th>Documento</th>
           <th>Nombre</th>
           <th>Apellido</th>
           <th>Asiste</th>
@@ -26,6 +27,7 @@ $nficha = $_GET['f'];
     $i=1;
     foreach( $modelo->listado($nficha) as $fila){?>
     <tr>
+      <td><?php echo $fila->Documento_Aprendiz;?></td>
       <td><?php echo $fila->PrimerNombre_Aprendiz;?></td>
       <td><?php echo $fila->PrimerApellido_Aprendiz;?></td>
       <td>
